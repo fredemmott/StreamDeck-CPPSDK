@@ -25,8 +25,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: StreamDeckSDK-${{github.ref}}.zip
+          name: StreamDeckSDK.zip
           path: StreamDeckSDK.zip
+      - run: ls -lR
       - uses: actions/checkout@v2
       - name: Configure
         run: |
