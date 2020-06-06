@@ -13,6 +13,27 @@ add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
 
 include(GnuInstallDirs)
+set(
+  GIT_REPOSITORY
+  https://github.com/fredemmott/StreamDeck-CPPSDK
+  CACHE STRING "Repository path to put in StreamDeckSDK.cmake"
+)
+set(
+  GIT_TAG
+  master
+  CACHE STRING "Git tag/commit/branch to put in StreamDeckSDK.cmake"
+)
+configure_file(
+  StreamDeckSDK.cmake.in
+  StreamDeckSDK.cmake
+  @ONLY
+)
+install(
+  FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/StreamDeckSDK.cmake
+  DESTINATION
+  ${CMAKE_INSTALL_DATADIR}
+)
 install(
   TARGETS
   StreamDeckSDK
@@ -60,26 +81,13 @@ install(
   "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
-function(normalize_installdir OUTVAR INVALUE)
-  get_filename_component(
-    _OUTVAR
-    "${INVALUE}"
-    ABSOLUTE
-    BASE_DIR "${CMAKE_INSTALL_PREFIX}"
-  )
-  set(${OUTVAR} ${_OUTVAR} PARENT_SCOPE)
-endfunction()
-
-normalize_installdir(INSTALL_ABS_LIBDIR ${CMAKE_INSTALL_LIBDIR})
-normalize_installdir(INSTALL_ABS_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR})
-
 add_custom_target(
   install_test
   DEPENDS
-  "${INSTALL_ABS_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}StreamDeckSDK${CMAKE_STATIC_LIBRARY_SUFFIX}"
-  "${INSTALL_ABS_INCLUDEDIR}/StreamDeckSDK/ESDBasePlugin.h"
-  "${INSTALL_ABS_INCLUDEDIR}/nlohmann/json.hpp"
-  "${INSTALL_ABS_INCLUDEDIR}/websocketpp/client.hpp"
-  "${INSTALL_ABS_INCLUDEDIR}/asio/version.hpp"
-  "${INSTALL_ABS_INCLUDEDIR}/asio.hpp"
+  "${CMAKE_INSTALL_FULL_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}StreamDeckSDK${CMAKE_STATIC_LIBRARY_SUFFIX}"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}/StreamDeckSDK/ESDBasePlugin.h"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}/nlohmann/json.hpp"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}/websocketpp/client.hpp"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}/asio/version.hpp"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}/asio.hpp"
 )
