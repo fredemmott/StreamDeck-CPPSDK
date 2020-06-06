@@ -14,7 +14,7 @@ This library has been bundled with and used by several plugins for since January
 - Audio Switcher
 - Discord Self-Mute/Self-Deafen
 
-## What's changed from the Elgato SDK?
+# What's changed from the Elgato SDK?
 
 - additional SDK features:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
@@ -45,11 +45,34 @@ This library has been bundled with and used by several plugins for since January
 - uses more recent versions of nlohmann/json, WebSocket++, and chriskohlhoff/asio
 - exposes CMake library targets for dependencies
 
-## Adding to a CMake project
+# Adding this to a CMake project
 
-TODO: this project is not yet ready for use.
+1. Download `StreamDeckSDK.cmake` from
+[the latest release](https://github.com/fredemmott/StreamDeck-CPPSDK/release/latest)
+2. `include()` it in your project
+3. A `StreamDeckSDK` static library is now available in your project; depending on it
+   will also make nlohmann/json, websocketpp, and asio available in your project,
+   including header files.
 
-## Porting
+For example:
+
+```cmake
+include("StreamDeckSDK.cmake")
+add_executable(
+  myplugin
+  MyStreamDeckPlugin.cpp
+  main.cpp
+)
+target_link_libraries(myplugin StreamDeckSDK)
+```
+
+For a more involved example, see
+[StreamDeck-Discord](https://github.com/fredemmott/StreamDeck-Discord).
+
+To update, replace `StreamDeckSDK.cmake` with the newer version and address any
+incompatibilities.
+
+# Porting
 
 First, you need to add a main function; this is usually very short, and looks
 something like:
