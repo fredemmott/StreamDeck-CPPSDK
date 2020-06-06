@@ -72,7 +72,7 @@ For a more involved example, see
 To update, replace `StreamDeckSDK.cmake` with the newer version and address any
 incompatibilities.
 
-# Porting
+# Porting from Elgato's code
 
 First, you need to add a main function; this is usually very short, and looks
 something like:
