@@ -38,3 +38,6 @@ if (APPLE)
     ${CORE_FOUNDATION_LIBRARY}
   )
 endif()
+
+file(GLOB HEADERS *.h)
+set_target_properties(StreamDeckSDK PROPERTIES PUBLIC_HEADER "${HEADERS}")

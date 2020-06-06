@@ -11,3 +11,12 @@ include_directories("${CMAKE_SOURCE_DIR}")
 
 add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
+
+include(GnuInstallDirs)
+install(
+  TARGETS
+  StreamDeckSDK
+  PUBLIC_HEADER
+  DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}/StreamDeckSDK"
+)
