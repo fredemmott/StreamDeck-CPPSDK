@@ -12,7 +12,7 @@ jobs:
         run: |
           git archive \
             --format=zip \
-            --prefix=StreamDeckSDK-"${GITHUB_REF##\*/}" \
+            --prefix=StreamDeckSDK-"$(echo ${{github.ref}} | awk -F/ '{print $NF}')" \
             -o StreamDeckSDK.zip \
             HEAD
       - name: Upload zip
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Configure
         run: |
-          GIT_TAG="${GITHUB_REF##\*/}" \
+          GIT_TAG="echo ${{github.ref}} | awk -F/ '{print $NF}')" \
           cmake . \
             -DSOURCE_URL_TYPE=URL \
             -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${GIT_TAG}/StreamDeckSDK-${GIT_TAG}.zip \
@@ -59,7 +59,7 @@ jobs:
       - name: List artifacts
         run: ls -lR
       - name: Get raw tag name
-        run: echo ::set-env name=VERSION::${GITHUB_REF##\*/} \
+        run: echo ::set-env name=VERSION::$(echo ${{github.ref}} | awk -F/ '{print $NF}')
       - name: Create draft release
         id: create_release
         uses: actions/create-release@v1
