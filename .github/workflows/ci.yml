@@ -21,7 +21,7 @@ jobs:
         working-directory: build
         run: cmake --install .
       - name: Test installation
-        working-dirctory: build
+        working-directory: build
         run: cmake --build . --target install_test
     strategy:
       matrix:
