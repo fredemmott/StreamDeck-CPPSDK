@@ -1,0 +1,7 @@
+x64/
+.vs
+.DS_Store
+xcuserdata
+.*.swp
+.vscode/
+build/
