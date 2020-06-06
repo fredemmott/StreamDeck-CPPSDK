@@ -26,7 +26,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: StreamDeckSDK.zip
-          path: StreamDeckSDK.zip
+          path: ${{runner.temp}}/StreamDeckSDK.zip
       - run: ls -lR
       - uses: actions/checkout@v2
       - name: Configure
@@ -35,7 +35,7 @@ jobs:
             -DSOURCE_URL_TYPE=URL \
             -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${{github.ref}}/StreamDeckSDK-${{github.ref}}.zip \
             -DSOURCE_REF_TYPE=URL_SHA \
-            -DSOURCE_REF=SHA512=$(openssl dgst -sha512 StreamDeckSDK.zip | cut -f2 '-d ') \
+            -DSOURCE_REF=SHA512=$(openssl dgst -sha512 ${{runner.temp}}/StreamDeckSDK.zip | cut -f2 '-d ') \
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
             "-DCMAKE_INSTALL_PREFIX=$(echo "${{runner.temp}}/install" | tr "\\\\" /)"
         shell: bash
