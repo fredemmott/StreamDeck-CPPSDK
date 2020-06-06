@@ -1,8 +1,9 @@
 name: Test Build
 on: [push]
-matrix:
-  os: [windows, macos]
-  build-type: [Release, Debug]
+strategy:
+  matrix:
+    os: [windows, macos]
+    build-type: [Release, Debug]
 jobs:
   build:
     name: ${{matrix.os}}/${{matrix.build-type}
