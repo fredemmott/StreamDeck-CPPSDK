@@ -11,7 +11,8 @@ jobs:
           git archive \
             --format=zip \
             --prefix=StreamDeckSDK-${{github.ref}}/ \
-            -o StreamDeckSDK.zip
+            -o StreamDeckSDK.zip \
+            HEAD
       - name: Upload zip
         uses: actions/upload-artifact@v2
         with:
