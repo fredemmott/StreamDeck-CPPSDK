@@ -10,11 +10,13 @@
 
 #ifdef __APPLE__
 #include <os/log.h>
-
-#include <cstdio>
-#else
+#endif 
+#ifdef _MSC_VER
 #include <Windows.h>
 #include <strsafe.h>
+#else
+#include <cstdarg>
+#include <cstdio>
 #endif
 
 namespace {
@@ -66,7 +68,8 @@ void ESDLogger::LogToSystem(const std::string& message) {
 #ifdef __APPLE__
   os_log_with_type(
     OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message.c_str());
-#else
+#endif
+#ifdef _MSC_VER
   OutputDebugStringA((mPrefix + message).c_str());
 #endif
 }

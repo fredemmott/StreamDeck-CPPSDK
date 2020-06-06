@@ -12,7 +12,7 @@ include_directories("${CMAKE_SOURCE_DIR}")
 add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
 
-include(GnuInstallDirs)
+include(GNUInstallDirs)
 set(
   SOURCE_URL_TYPE
   GIT_REPOSITORY CACHE STRING "StreamDeckSDK.cmake: path of source repository"

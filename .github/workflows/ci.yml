@@ -33,5 +33,5 @@ jobs:
           path: build/StreamDeckSDK.cmake
     strategy:
       matrix:
-        os: [windows, macos]
+        os: [windows, macos, ubuntu]
         build-type: [Release, Debug]

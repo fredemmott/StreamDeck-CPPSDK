@@ -10,7 +10,7 @@ if (WIN32)
 elseif (APPLE)
   list(APPEND SOURCES ESDUtilitiesMac.cpp)
 else()
-  message(FATAL_ERROR "Unsupported platform")
+  list(APPEND SOURCES ESDUtilitiesStubs.cpp)
 endif()
 
 add_library(
