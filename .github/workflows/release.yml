@@ -26,8 +26,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: StreamDeckSDK.zip
-          path: ${{runner.temp}}/StreamDeckSDK.zip
-      - run: ls -lR
+          path: ${{runner.temp}}
+      - run: ls -lR ${{runner.temp}}
       - uses: actions/checkout@v2
       - name: Configure
         run: |
