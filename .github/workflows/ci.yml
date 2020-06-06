@@ -12,7 +12,7 @@ jobs:
         working-directory: build
         run: |
           cmake .. \
-            -DCMAKE_BUILD_TYPE=${{matrix.build-type}}
+            -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
             -DCMAKE_INSTALL_PREFIX=${{runner.temp}}/install
       - name: Compile
         working-directory: build
