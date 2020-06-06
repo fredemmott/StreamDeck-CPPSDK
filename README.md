@@ -16,7 +16,7 @@ This library has been bundled with and used by several plugins for since January
 
 - additional SDK features:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
-  - `ESDBasePlugin::DidRecieveSettings()`
+  - `ESDBasePlugin::DidReceiveSettings()`
   - `ESDConnectionManager::GetGlobalSettings()`
   - `ESDConnectionManager::SetGlobalSettings()`
   - `ESDUtilities::GetFileName()`
