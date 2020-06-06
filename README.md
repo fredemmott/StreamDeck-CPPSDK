@@ -12,7 +12,7 @@ This library has been bundled with and used by several plugins for since January
 - Audio Switcher
 - Discord Self-Mute/Self-Deafen
 
-## What's different with the Elgato SDK?
+## What's changed from the Elgato SDK?
 
 - additional SDK features:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
