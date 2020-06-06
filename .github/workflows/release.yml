@@ -27,7 +27,6 @@ jobs:
         with:
           name: StreamDeckSDK.zip
           path: ${{runner.temp}}
-      - run: ls -lR ${{runner.temp}}
       - uses: actions/checkout@v2
       - name: Configure
         run: |
