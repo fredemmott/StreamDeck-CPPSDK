@@ -1,7 +1,5 @@
 name: Release Artifacts
-on:
-  push:
-    tags: "v*"
+on: [push]
 jobs:
   make-zip:
     name: Build release zip archive
