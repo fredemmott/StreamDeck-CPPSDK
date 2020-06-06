@@ -53,3 +53,26 @@ install(
   DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}"
 )
+
+function(normalize_installdir OUTVAR INVALUE)
+  get_filename_component(
+    _OUTVAR
+    "${INVALUE}"
+    ABSOLUTE
+    BASE_DIR "${CMAKE_INSTALL_PREFIX}"
+  )
+  set(${OUTVAR} ${_OUTVAR} PARENT_SCOPE)
+endfunction()
+
+normalize_installdir(INSTALL_ABS_LIBDIR ${CMAKE_INSTALL_LIBDIR})
+normalize_installdir(INSTALL_ABS_INCLUDEDIR ${CMAKE_INSTALL_INCLUDEDIR})
+
+add_custom_target(
+  install_test
+  DEPENDS
+  "${INSTALL_ABS_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}StreamDeckSDK${CMAKE_STATIC_LIBRARY_SUFFIX}"
+  "${INSTALL_ABS_INCLUDEDIR}/StreamDeckSDK/ESDBasePlugin.h"
+  "${INSTALL_ABS_INCLUDEDIR}/nlohmann/json.hpp"
+  "${INSTALL_ABS_INCLUDEDIR}/websocketpp/client.hpp"
+  "${INSTALL_ABS_INCLUDEDIR}/asio/version.hpp"
+)

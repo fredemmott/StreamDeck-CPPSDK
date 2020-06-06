@@ -10,10 +10,19 @@ jobs:
         run: cmake -E make_directory build
       - name: Configure
         working-directory: build
-        run: cmake .. -DCMAKE_BUILD_TYPE=${{matrix.build-type}}
+        run: |
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=${{matrix.build-type}}
+            -DCMAKE_INSTALL_PREFIX=${{runner.temp}}/install
       - name: Compile
         working-directory: build
         run: cmake --build .
+      - name: Install
+        working-directory: build
+        run: cmake --install .
+      - name: Test installation
+        working-dirctory: build
+        run: cmake --build . --target install_test
     strategy:
       matrix:
         os: [windows, macos]
