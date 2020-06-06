@@ -1,3 +1,5 @@
+![Continuous Integration](https://github.com/fredemmott/StreamDeck-CPPSDK/workflows/Continuous%20Integration/badge.svg)
+
 # What is this?
 
 This is re-usable library derived from the Elgato's
