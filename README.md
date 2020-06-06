@@ -48,7 +48,7 @@ This library has been bundled with and used by several plugins for since January
 # Adding this to a CMake project
 
 1. Download `StreamDeckSDK.cmake` from
-[the latest release](https://github.com/fredemmott/StreamDeck-CPPSDK/release/latest)
+[the latest release](https://github.com/fredemmott/StreamDeck-CPPSDK/releases/latest)
 2. `include()` it in your project
 3. A `StreamDeckSDK` static library is now available in your project; depending on it
    will also make nlohmann/json, websocketpp, and asio available in your project,
