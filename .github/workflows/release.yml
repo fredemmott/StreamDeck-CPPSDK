@@ -31,12 +31,13 @@ jobs:
           path: ${{runner.temp}}/artifacts
       - run: ls -lR ${{runner.temp}}/artifacts
       - uses: actions/checkout@v2
+      - name: Get raw tag name
+        run: echo ::set-env name=VERSION::$(echo ${{github.ref}} | awk -F/ '{print $NF}')
       - name: Configure
         run: |
-          GIT_TAG="echo ${{github.ref}} | awk -F/ '{print $NF}')" \
           cmake . \
             -DSOURCE_URL_TYPE=URL \
-            -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${GIT_TAG}/StreamDeckSDK-${GIT_TAG}.zip \
+            -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${{env['VERSION']}}/StreamDeckSDK-${{ENV['VERSION']}}.zip \
             -DSOURCE_REF_TYPE=URL_SHA \
             -DSOURCE_REF=SHA512=$(openssl dgst -sha512 "${{runner.temp}}/artifacts/StreamDeckSDK.zip" | cut -f2 '-d ') \
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
