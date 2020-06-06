@@ -6,7 +6,7 @@ strategy:
     build-type: [Release, Debug]
 jobs:
   build:
-    name: ${{matrix.os}}/${{matrix.build-type}
+    name: ${{matrix.os}}/${{matrix.build-type}}
     runs-on: ${{matrix.os}}-latest
     steps:
       - uses: actions/checkout@v2
