@@ -1,0 +1,55 @@
+name: Release Artifacts
+on:
+  push:
+    tags: "v*"
+jobs:
+  make-zip:
+    name: Build release zip archive
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build zip
+        run: |
+          git archive \
+            --format=zip \
+            --prefix=StreamDeckSDK-${{github.ref}}/ \
+            -o StreamDeckSDK.zip
+      - name: Upload zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: StreamDeckSDK.zip
+          path: StreamDeckSDK.zip
+  make-cmake-file:
+    name: Make CMake file
+    needs: make-zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: StreamDeckSDK-${{github.ref}}.zip
+          path: StreamDeckSDK.zip
+      - uses: actions/checkout@v2
+      - name: Configure
+        run: |
+          cmake .. \
+            -DSOURCE_URL_TYPE=URL \
+            -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${{github.ref}}/StreamDeckSDK-${{github.ref}}.zip \
+            -DSOURCE_REF_TYPE=URL_SHA \
+            -DSOURCE_REF=SHA512=$(openssl dgst -sha512 StreamDeckSDK.zip | cut -f2 '-d ') \
+            -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
+            "-DCMAKE_INSTALL_PREFIX=$(echo "${{runner.temp}}/install" | tr "\\\\" /)"
+      - name: Upload StreamDeckSDK.cmake
+        uses: actions/upload-artifact@v2
+        with:
+          name: StreamDeckSDK.cmake
+          path: StreamDeckSDK.cmake
+        shell: bash
+  create-release:
+    name: Create Release
+    needs: [make-zip, make-cmake-file]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - run: ls -lR
