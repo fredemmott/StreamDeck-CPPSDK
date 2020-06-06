@@ -12,6 +12,8 @@ jobs:
         working-directory: build
         run: |
           cmake .. \
+            -DGIT_REPOSITORY=https://github.com/${{github.repository}} \
+            -DGIT_TAG=${{github.ref}} \
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
             "-DCMAKE_INSTALL_PREFIX=$(echo "${{runner.temp}}/install" | tr "\\\\" /)"
         shell: bash
