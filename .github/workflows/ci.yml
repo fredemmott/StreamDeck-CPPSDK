@@ -24,6 +24,10 @@ jobs:
       - name: Test installation
         working-directory: build
         run: cmake --build . --target install_test --config ${{matrix.build-type}}
+      - name: Upload StreamDeckSDK.cmake
+        uses: actions/upload-artifact@v2
+        working-directory: build
+        path: StreamDeckSDK.cmake
     strategy:
       matrix:
         os: [windows, macos]
