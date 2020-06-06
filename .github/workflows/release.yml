@@ -68,7 +68,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{env['VERSION']}}
-          release_name: Release ${{env['VERSION'] }}
+          release_name: Release ${{env['VERSION']}}
           draft: true
           prerelease: false
       - name: Add zip file to release
@@ -78,7 +78,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: artifacts/StreamDeckSDK.zip/StreamDeckSDK.zip
-          asset_name: StreamDeckSDK-${{env['VERSION'}}.zip
+          asset_name: StreamDeckSDK-${{env['VERSION']}}.zip
           asset_content_type: application/zip
       - name: Add .cmake file to release
         uses: actions/upload-release-asset@v1
