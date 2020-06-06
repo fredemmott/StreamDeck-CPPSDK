@@ -1,9 +1,5 @@
 name: Continuous Integration
 on: [push]
-strategy:
-  matrix:
-    os: [windows, macos]
-    build-type: [Release, Debug]
 jobs:
   build:
     name: ${{matrix.os}}/${{matrix.build-type}}
@@ -18,3 +14,7 @@ jobs:
       - name: Compile
         working-directory: build
         run: cmake --build .
+    strategy:
+      matrix:
+        os: [windows, macos]
+        build-type: [Release, Debug]
