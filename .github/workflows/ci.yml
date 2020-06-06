@@ -14,6 +14,7 @@ jobs:
           cmake .. \
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
             -DCMAKE_INSTALL_PREFIX=${{runner.temp}}/install
+        shelL: bash
       - name: Compile
         working-directory: build
         run: cmake --build .
