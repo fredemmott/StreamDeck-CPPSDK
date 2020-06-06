@@ -31,6 +31,12 @@ install(
   DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}"
 )
+install(
+  FILES
+  "${ASIO_INCLUDE_DIRS}/asio.hpp"
+  DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}"
+)
 get_target_property(
   JSON_INCLUDE_DIRS
   json 
@@ -75,4 +81,5 @@ add_custom_target(
   "${INSTALL_ABS_INCLUDEDIR}/nlohmann/json.hpp"
   "${INSTALL_ABS_INCLUDEDIR}/websocketpp/client.hpp"
   "${INSTALL_ABS_INCLUDEDIR}/asio/version.hpp"
+  "${INSTALL_ABS_INCLUDEDIR}/asio.hpp"
 )
