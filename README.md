@@ -77,7 +77,7 @@ incompatibilities.
 First, you need to add a main function; this is usually very short, and looks
 something like:
 
-```
+```c++
 #include "MyStreamDeckPlugin.h"
 
 #include <StreamDeckSDK/ESDMain.h>
