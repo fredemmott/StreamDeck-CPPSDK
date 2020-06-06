@@ -38,7 +38,7 @@ jobs:
           cmake . \
             -DSOURCE_URL_TYPE=URL \
             -DSOURCE_URL=https://github.com/${{github.repository}}/releases/download/${{env['VERSION']}}/StreamDeckSDK-${{ENV['VERSION']}}.zip \
-            -DSOURCE_REF_TYPE=URL_SHA \
+            -DSOURCE_REF_TYPE=URL_HASH \
             -DSOURCE_REF=SHA512=$(openssl dgst -sha512 "${{runner.temp}}/artifacts/StreamDeckSDK.zip" | cut -f2 '-d ') \
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} \
             "-DCMAKE_INSTALL_PREFIX=$(echo "${{runner.temp}}/install" | tr "\\\\" /)"
