@@ -12,7 +12,7 @@ jobs:
         run: |
           git archive \
             --format=zip \
-            --prefix=StreamDeckSDK-"$(echo ${{github.ref}} | awk -F/ '{print $NF}')" \
+            --prefix=StreamDeckSDK-"$(echo ${{github.ref}} | awk -F/ '{print $NF}')/" \
             -o StreamDeckSDK.zip \
             HEAD
       - name: Upload zip
