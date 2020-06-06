@@ -14,14 +14,23 @@ add_subdirectory(StreamDeckSDK)
 
 include(GnuInstallDirs)
 set(
-  GIT_REPOSITORY
-  https://github.com/fredemmott/StreamDeck-CPPSDK
-  CACHE STRING "Repository path to put in StreamDeckSDK.cmake"
+  SOURCE_URL_TYPE
+  GIT_REPOSITORY CACHE STRING "StreamDeckSDK.cmake: path of source repository"
 )
 set(
+  SOURCE_URL
+  https://github.com/fredemmott/StreamDeck-CPPSDK
+  CACHE STRING "StreamDeckSDK.cmake: type of source repository"
+)
+set(
+  SOURCE_REF_TYPE
   GIT_TAG
+  CACHE STRING "StreamDeckSDK.cmake: type of source repository version id"
+)
+set(
+  SOURCE_REF
   master
-  CACHE STRING "Git tag/commit/branch to put in StreamDeckSDK.cmake"
+  CACHE STRING "StreamDeckSDK.cmake: source repository version ID"
 )
 configure_file(
   StreamDeckSDK.cmake.in
