@@ -72,6 +72,16 @@ For a more involved example, see
 To update, replace `StreamDeckSDK.cmake` with the newer version and address any
 incompatibilities.
 
+## Copying
+
+This is **strongly** discouraged; however if it seems necessary:
+
+1. Copy into a subdirectory of your project
+2. `add_subdirectory('StreamDeckCPPSDK/Vendor')`
+3. `add_subdirectory('StreamDeckCPPSDK/StreamDeckSDK')`
+4. You are now able to directly refer to the `StreamDeckSDK`, `asio`, `json`, and
+  `websocketpp` targets.
+
 # Porting from Elgato's code
 
 First, you need to add a main function; this is usually very short, and looks
