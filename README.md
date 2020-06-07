@@ -2,7 +2,7 @@
 
 # What is this?
 
-This is re-usable library derived from the Elgato's
+This is re-usable library derived from Elgato's
 [CPU plugin](https://github.com/elgatosf/streamdeck-cpu).
 
 It is currently based on [a version from 2019-05-27](https://github.com/elgatosf/streamdeck-cpu/commit/0a9c2557fbe6f829f3456a272672f810291948b3). This is:
