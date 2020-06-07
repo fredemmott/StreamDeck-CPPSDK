@@ -66,8 +66,8 @@ add_executable(
 target_link_libraries(myplugin StreamDeckSDK)
 ```
 
-For a more involved example, see
-[StreamDeck-Discord](https://github.com/fredemmott/StreamDeck-Discord).
+For a complete example, there is
+[a fork](https://github.com/fredemmott/streamdeck-cpu) of Elgato's CPU plugin.
 
 To update, replace `StreamDeckSDK.cmake` with the newer version and address any
 incompatibilities.
@@ -109,3 +109,12 @@ You will then need to do several smaller changes:
   - otherwise, directly include the header files you want
 - add `#include <nlohmann/json.hpp>` when needed
 - either add `using json = nlohmann::json;`, or replace `json` with `nlohmann::json`
+
+For example, the CPU plugin was ported by:
+
+1. [Deleting all common code and build artifacts](https://github.com/fredemmott/streamdeck-cpu/commit/fa8dd6f56bca64d168735d0314fc90c1fe93b4e3)
+2. [Adding CMake and main.cpp](https://github.com/fredemmott/streamdeck-cpu/commit/c3ddaa0b7e53cc3ec38619ab9cc61e32e67a5512)
+3. [Manually fixing some compatibility issues](https://github.com/fredemmott/streamdeck-cpu/commit/5ea8900eec8b07bd2d0428281326c66a0ca36737)
+
+Additionally, using CMake makes it easy to automatically build on both platforms
+[using GitHub actions](https://github.com/fredemmott/streamdeck-cpu/commit/8ad6e1c35868965651b583011c63b264b049f841).
