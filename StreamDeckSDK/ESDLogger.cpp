@@ -10,7 +10,7 @@
 
 #ifdef __APPLE__
 #include <os/log.h>
-#endif 
+#endif
 #ifdef _MSC_VER
 #include <Windows.h>
 #include <strsafe.h>
@@ -35,6 +35,12 @@ ESDLogger::ESDLogger() {
 
 void ESDLogger::SetWin32DebugPrefix(const std::string& prefix) {
   mPrefix = prefix;
+#ifdef _MSC_VER
+  const int wlen = MultiByteToWideChar(CP_UTF8, NULL, prefix.data(), prefix.size(), NULL, NULL);
+  std::wstring wstr(wlen, 0);
+  MultiByteToWideChar(CP_UTF8, NULL, prefix.data(), prefix.size(), &wstr[0], wlen);
+  mWidePrefix = wstr;
+#endif
 }
 
 void ESDLogger::SetConnectionManager(ESDConnectionManager* conn) {
@@ -50,19 +56,36 @@ void ESDLogger::LogToStreamDeckSoftware(const std::string& message) {
 
 void ESDLogger::LogMessage(
   const char* file,
-  ESDLOGGER_FORMAT_STRING(format),
-  ...) {
-  va_list args;
-  va_start(args, format);
-  char buf[1024];
-  vsnprintf(buf, sizeof(buf), format, args);
-  va_end(args);
-  std::string message(ESDUtilities::GetFileName(file) + ": " + buf);
+  const std::string& msg
+) {
+  const auto message = fmt::format(FMT_STRING("{}: {}"), file, msg);
   this->LogToStreamDeckSoftware(message);
 #ifndef NDEBUG
   this->LogToSystem(message);
 #endif
 }
+
+#ifdef _MSC_VER
+void ESDLogger::LogMessage(
+  const char* file,
+  const std::wstring& wmsg
+) {
+  const auto wlen = MultiByteToWideChar(CP_UTF8, NULL, file, -1, NULL, NULL);
+  std::wstring wfile(wlen, 0);
+  MultiByteToWideChar(CP_UTF8, NULL, file, -1, &wfile[0], wlen);
+  wfile.resize(wlen - 1);
+
+  const auto wbuf = fmt::format(FMT_STRING(L"{}: {}"), wfile, wmsg);
+#ifndef NDEBUG
+  this->LogToSystem(wbuf);
+#endif
+
+  const auto len = WideCharToMultiByte(CP_UTF8, NULL, &wbuf[0], wbuf.size(), nullptr, -1, 0, 0);
+  std::string buf(len, 0);
+  WideCharToMultiByte(CP_UTF8, NULL, &wbuf[0], wbuf.size(), &buf[0], len, 0, 0);
+  this->LogToStreamDeckSoftware(buf);
+}
+#endif
 
 void ESDLogger::LogToSystem(const std::string& message) {
 #ifdef __APPLE__
@@ -70,6 +93,14 @@ void ESDLogger::LogToSystem(const std::string& message) {
     OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message.c_str());
 #endif
 #ifdef _MSC_VER
-  OutputDebugStringA((mPrefix + message).c_str());
+  const auto buf = mPrefix + message;
+  OutputDebugStringA(buf.c_str());
 #endif
 }
+
+#ifdef _MSC_VER
+void ESDLogger::LogToSystem(const std::wstring& message) {
+  const auto buf = mWidePrefix + message;
+  OutputDebugStringW(buf.c_str());
+}
+#endif

@@ -20,13 +20,10 @@ add_library(
 )
 target_link_libraries(
   StreamDeckSDK
-  PRIVATE
-  asio
-  json
-)
-target_link_libraries(
-  StreamDeckSDK
   PUBLIC
+  asio
+  fmt
+  json
   websocketpp
 )
 
