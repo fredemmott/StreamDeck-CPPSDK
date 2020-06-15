@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.10)
 project(com.fredemmott.streamdeckcppsdk VERSION 0.1)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 if (MSVC)
   add_definitions("/Zc:__cplusplus")
 endif()
@@ -40,6 +41,7 @@ configure_file(
 install(
   FILES
   ${CMAKE_CURRENT_BINARY_DIR}/StreamDeckSDK.cmake
+  ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
   DESTINATION
   ${CMAKE_INSTALL_DATADIR}
 )
@@ -69,7 +71,7 @@ install(
 )
 get_target_property(
   JSON_INCLUDE_DIRS
-  json 
+  json
   INTERFACE_INCLUDE_DIRECTORIES
 )
 install(
