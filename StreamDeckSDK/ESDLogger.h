@@ -36,15 +36,25 @@ class ESDLogger final {
 #endif
 };
 
-#define ESDLogf(fmt, ...) ESDLogger::LogMessagef(__FILE__, fmt, __VA_ARGS__)
+#define ESDLogf(...) ESDLogger::LogMessagef(__FILE__, __VA_ARGS__)
+#define ESDLog(...) ESDLogf(__VA_ARGS__)
+
+// Not currently possible to handle empty __VA_ARGS__ portably;
+// - MSVC: just works
+// - GCC/Clang: if `##` is prepended, omit the `,` if needed
+// - C++20: __VA_OPT__(,) __VA_ARGS__ -  not yet widely supported.
+#ifdef _MSC_VER
 #define ESDLogfmt(fmt, ...) \
   ESDLogger::LogMessagefmt(__FILE__, FMT_STRING(fmt), __VA_ARGS__)
-#define ESDLog(fmt, ...) ESDLogf(fmt, __VA_ARGS__)
+#else
+#define ESDLogfmt(fmt, ...) \
+  ESDLogger::LogMessagefmt(__FILE__, FMT_STRING(fmt),  ##__VA_ARGS__)
+#endif
 
 #ifndef NDEBUG
-#define ESDDebug(fmt, ...) ESDLog(fmt, __VA_ARGS__)
-#define ESDDebugf(fmt, ...) ESDLogf(fmt, __VA_ARGS__)
-#define ESDDebugfmt(fmt, ...) ESDLogfmt(fmt, __VA_ARGS__)
+#define ESDDebug(...) ESDLog(__VA_ARGS__)
+#define ESDDebugf(...) ESDLogf(__VA_ARGS__)
+#define ESDDebugfmt(...) ESDLogfmt(__VA_ARGS__)
 #else
 #define ESDDebug(...) while (0)
 #define ESDDebugf(...) while (0)
