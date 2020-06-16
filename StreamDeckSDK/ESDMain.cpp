@@ -18,7 +18,7 @@ LICENSE file.
 
 int esd_main(int argc, const char** argv, ESDBasePlugin* plugin) {
   if (argc != 9) {
-    ESDDebug("Invalid number of parameters %d instead of 9\n", argc);
+    ESDDebugfmt("Invalid number of parameters {} instead of 9\n", argc);
     return 1;
   }
 
