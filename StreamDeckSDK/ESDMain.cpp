@@ -79,7 +79,7 @@ int esd_main(int argc, const char** argv, ESDBasePlugin* plugin) {
   // Create the connection manager
   ESDConnectionManager* connectionManager
     = new ESDConnectionManager(port, pluginUUID, registerEvent, info, plugin);
-  ESDLogger::Get()->SetConnectionManager(connectionManager);
+  ESDLogger::SetConnectionManager(connectionManager);
 
   // Connect and start the event loop
   connectionManager->Run();

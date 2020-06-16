@@ -10,49 +10,41 @@
 
 class ESDConnectionManager;
 
-class ESDLogger {
+class ESDLogger final {
  public:
-  static ESDLogger* Get();
-
-  void SetWin32DebugPrefix(const std::string& mPrefix);
-  void SetConnectionManager(ESDConnectionManager* conn);
+  ESDLogger() = delete;
+  static void SetWin32DebugPrefix(const std::string& mPrefix);
+  static void SetConnectionManager(ESDConnectionManager* conn);
 
   template <typename Tfmt, typename... Targs>
-  void LogMessagef(const char* context, Tfmt fmt, Targs... args) {
+  static void LogMessagef(const char* context, Tfmt fmt, Targs... args) {
     LogMessage(context, fmt::sprintf(fmt, args...));
   }
 
   template <typename Tfmt, typename... Targs>
-  void LogMessagefmt(const char* context, Tfmt fmt, Targs... args) {
+  static void LogMessagefmt(const char* context, Tfmt fmt, Targs... args) {
     LogMessage(context, fmt::format(fmt, args...));
   }
 
  private:
-  ESDLogger();
-
-  void LogMessage(const char* context, const std::string& message);
-  void LogToSystem(const std::string& message);
-  void LogToStreamDeckSoftware(const std::string& message);
-
-  std::string mPrefix;
-  std::wstring mWidePrefix;
-  ESDConnectionManager* mConnectionManager = nullptr;
-
+  static void LogMessage(const char* context, const std::string& message);
+  static void LogToSystem(const std::string& message);
+  static void LogToStreamDeckSoftware(const std::string& message);
 #ifdef _MSC_VER
-  void LogMessage(const char* context, const std::wstring& message);
-  void LogToSystem(const std::wstring& message);
+  static void LogMessage(const char* context, const std::wstring& message);
+  static void LogToSystem(const std::wstring& message);
 #endif
 };
 
-#define ESDLogf(...) ESDLogger::Get()->LogMessagef(__FILE__, __VA_ARGS__)
+#define ESDLogf(fmt, ...) ESDLogger::LogMessagef(__FILE__, fmt, __VA_ARGS__)
 #define ESDLogfmt(fmt, ...) \
-  ESDLogger::Get()->LogMessagefmt(__FILE__, FMT_STRING(fmt), __VA_ARGS__)
-#define ESDLog(...) ESDLogger::Get()->LogMessagef(__FILE__, __VA_ARGS__)
+  ESDLogger::LogMessagefmt(__FILE__, FMT_STRING(fmt), __VA_ARGS__)
+#define ESDLog(fmt, ...) ESDLogf(fmt, __VA_ARGS__)
 
 #ifndef NDEBUG
-#define ESDDebug(...) ESDLog(__VA_ARGS__)
-#define ESDDebugf(...) ESDLogf(__VA_ARGS__)
-#define ESDDebugfmt(...) ESDLogfmt(__VA_ARGS__)
+#define ESDDebug(fmt, ...) ESDLog(fmt, __VA_ARGS__)
+#define ESDDebugf(fmt, ...) ESDLogf(fmt, __VA_ARGS__)
+#define ESDDebugfmt(fmt, ...) ESDLogfmt(fmt, __VA_ARGS__)
 #else
 #define ESDDebug(...) while (0)
 #define ESDDebugf(...) while (0)
