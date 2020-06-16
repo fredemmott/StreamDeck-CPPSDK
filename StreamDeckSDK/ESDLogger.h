@@ -52,9 +52,9 @@ class ESDLogger final {
 #endif
 
 #ifndef NDEBUG
-#define ESDDebug(...) ESDLog(__VA_ARGS__)
-#define ESDDebugf(...) ESDLogf(__VA_ARGS__)
-#define ESDDebugfmt(...) ESDLogfmt(__VA_ARGS__)
+#define ESDDebug ESDLog
+#define ESDDebugf ESDLogf
+#define ESDDebugfmt ESDLogfmt
 #else
 #define ESDDebug(...) while (0)
 #define ESDDebugf(...) while (0)
