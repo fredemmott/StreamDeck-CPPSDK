@@ -27,10 +27,13 @@ class ESDUtilities {
   // Return the path without the last component (dirname). Returns path if it is
   // already a root folder (i.e. 'C:\\', '\\ABC' or '/'). Return an empty string
   // if error
-  static std::string GetFolderPath(const std::string &inPath);
+  static std::string GetParentDirectoryPath(const std::string &inPath);
+
   // Return the last component of the path (basename)
   static std::string GetFileName(const std::string &inPath);
 
   // Get the path of the .sdPlugin bundle
-  static std::string GetPluginPath();
+  static std::string GetPluginDirectoryPath();
+  // Get the path of the full executable
+  static std::string GetPluginExecutablePath();
 };

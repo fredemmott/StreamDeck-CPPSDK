@@ -8,9 +8,9 @@ set(
 if (WIN32)
   list(APPEND SOURCES ESDLoggerWindows.cpp ESDUtilitiesWindows.cpp)
 elseif (APPLE)
-  list(APPEND SOURCES ESDUtilitiesMac.cpp)
+  list(APPEND SOURCES ESDUtilitiesMac.cpp ESDUtilitiesPOSIX.cpp)
 else()
-  list(APPEND SOURCES ESDUtilitiesStubs.cpp)
+  list(APPEND SOURCES ESDUtilitiesStubs.cpp ESDUtilitiesPOSIX.cpp)
 endif()
 
 add_library(
@@ -26,15 +26,6 @@ target_link_libraries(
   json
   websocketpp
 )
-
-if (APPLE)
-  find_library(CORE_FOUNDATION_LIBRARY CoreFoundation REQUIRED)
-  target_link_libraries(
-    StreamDeckSDK
-    PUBLIC
-    ${CORE_FOUNDATION_LIBRARY}
-  )
-endif()
 
 file(GLOB HEADERS *.h)
 set_target_properties(StreamDeckSDK PROPERTIES PUBLIC_HEADER "${HEADERS}")

@@ -7,24 +7,6 @@
 
 #include "ESDUtilities.h"
 
-void ESDUtilities::DoSleep(int inMilliseconds) {
-  abort();
-}
-
-std::string ESDUtilities::AddPathComponent(
-  const std::string& inPath,
-  const std::string& inComponentToAdd) {
-  abort();
-}
-
-std::string ESDUtilities::GetFolderPath(const std::string& inPath) {
-  abort();
-}
-
-std::string ESDUtilities::GetFileName(const std::string& inPath) {
-  abort();
-}
-
-std::string ESDUtilities::GetPluginPath() {
+std::string ESDUtilities::GetPluginExecutablePath() {
   abort();
 }

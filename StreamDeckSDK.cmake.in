@@ -21,12 +21,3 @@ target_link_libraries(
 )
 target_include_directories(StreamDeckSDK INTERFACE ${INSTALL_DIR}/include)
 target_compile_definitions(StreamDeckSDK INTERFACE -DASIO_STANDALONE=1)
-
-if (APPLE)
-  find_library(CORE_FOUNDATION_LIBRARY CoreFoundation REQUIRED)
-  target_link_libraries(
-    StreamDeckSDK
-    INTERFACE
-    ${CORE_FOUNDATION_LIBRARY}
-  )
-endif()

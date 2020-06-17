@@ -13,7 +13,6 @@ LICENSE file.
 
 #include "ESDLogger.h"
 #include "ESDUtilities.h"
-
 #include "windows.h"
 
 void ESDUtilities::DoSleep(int inMilliseconds) {
@@ -159,7 +158,7 @@ std::string ESDUtilities::AddPathComponent(
   return result;
 }
 
-std::string ESDUtilities::GetFolderPath(const std::string& inPath) {
+std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
   //
   // Use the platform specific delimiter
   //
@@ -228,37 +227,37 @@ std::string ESDUtilities::GetFolderPath(const std::string& inPath) {
   return "";
 }
 
-std::string ESDUtilities::GetPluginPath() {
+std::string ESDUtilities::GetPluginDirectoryPath() {
   static std::string sPluginPath;
 
   if (sPluginPath.empty()) {
-    char path[MAX_PATH] = {0};
-    DWORD result = GetModuleFileNameA(NULL, path, MAX_PATH);
-    if (result > 0) {
-      std::string pathString(path);
+    std::string pathString(GetPluginExecutablePath());
 
-      while (!pathString.empty()) {
-        if (pathString == "/" || HasSuffix(pathString, ":\\")) {
-          break;
-        }
-
-        std::string pathExtension = GetExtension(pathString);
-        if (pathExtension == ".sdPlugin") {
-          sPluginPath = pathString;
-          break;
-        }
-
-        std::string parentPath = GetFolderPath(pathString);
-        if (parentPath != pathString) {
-          pathString = parentPath;
-        } else {
-          break;
-        }
+    while (!pathString.empty()) {
+      if (pathString == "/" || HasSuffix(pathString, ":\\")) {
+        break;
       }
-    } else {
-      ESDDebug("Could not get path.\n");
+
+      std::string pathExtension = GetExtension(pathString);
+      if (pathExtension == ".sdPlugin") {
+        sPluginPath = pathString;
+        break;
+      }
+
+      std::string parentPath = GetFolderPath(pathString);
+      if (parentPath != pathString) {
+        pathString = parentPath;
+      } else {
+        break;
+      }
     }
+
+    return sPluginPath;
   }
 
-  return sPluginPath;
-}
+  std::string ESDUtilities::GetPluginExecutablePath() {
+    char* native = nullptr;
+    _get_pgmptr(&native);
+    assert(native);
+    return native;
+  }

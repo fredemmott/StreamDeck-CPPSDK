@@ -28,7 +28,7 @@ void ESDLocalizer::Initialize(const std::string &inLanguageCode) {
 
 ESDLocalizer::ESDLocalizer(const std::string &inLanguageCode) {
   try {
-    std::string pluginPath = ESDUtilities::GetPluginPath();
+    const std::string pluginPath(ESDUtilities::GetPluginExecutablePath());
     if (!inLanguageCode.empty() && !pluginPath.empty()) {
       std::string localizationFilePath
         = ESDUtilities::AddPathComponent(pluginPath, inLanguageCode + ".json");
