@@ -11,6 +11,8 @@ LICENSE file.
 **/
 //==============================================================================
 
+#include <cassert>
+
 #include "ESDLogger.h"
 #include "ESDUtilities.h"
 #include "windows.h"
@@ -244,20 +246,21 @@ std::string ESDUtilities::GetPluginDirectoryPath() {
         break;
       }
 
-      std::string parentPath = GetFolderPath(pathString);
+      std::string parentPath = GetParentDirectoryPath(pathString);
       if (parentPath != pathString) {
         pathString = parentPath;
       } else {
         break;
       }
     }
-
-    return sPluginPath;
   }
 
-  std::string ESDUtilities::GetPluginExecutablePath() {
-    char* native = nullptr;
-    _get_pgmptr(&native);
-    assert(native);
-    return native;
-  }
+  return sPluginPath;
+}
+
+std::string ESDUtilities::GetPluginExecutablePath() {
+  char* native = nullptr;
+  _get_pgmptr(&native);
+  assert(native);
+  return native;
+}
