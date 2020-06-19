@@ -18,7 +18,7 @@ LICENSE file.
 
 int esd_main(int argc, const char** argv, ESDBasePlugin* plugin) {
   if (argc != 9) {
-    ESDDebug("Invalid number of parameters {} instead of 9\n", argc);
+    ESDLog("Invalid number of parameters {} instead of 9", argc);
     return 1;
   }
 
@@ -43,21 +43,21 @@ int esd_main(int argc, const char** argv, ESDBasePlugin* plugin) {
   }
 
   if (port == 0) {
-    ESDDebug("Invalid port number\n");
+    ESDLog("Invalid port number");
     return 1;
   }
   if (pluginUUID.empty()) {
-    ESDDebug("Invalid plugin UUID\n");
+    ESDLog("Invalid plugin UUID");
     return 1;
   }
 
   if (registerEvent.empty()) {
-    ESDDebug("Invalid registerEvent\n");
+    ESDLog("Invalid registerEvent");
     return 1;
   }
 
   if (info.empty()) {
-    ESDDebug("Invalid info\n");
+    ESDLog("Invalid info");
     return 1;
   }
   // Initialize localization helper
