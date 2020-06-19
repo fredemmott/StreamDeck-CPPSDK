@@ -16,6 +16,13 @@ include_directories("${CMAKE_SOURCE_DIR}")
 add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
 
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+endif()
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
+
 include(GNUInstallDirs)
 set(
   SOURCE_URL_TYPE
