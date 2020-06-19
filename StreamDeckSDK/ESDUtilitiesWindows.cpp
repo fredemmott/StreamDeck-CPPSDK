@@ -41,24 +41,19 @@ static char GetFileSystemPathDelimiter() {
 }
 
 static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
-  if (!inUtf8Path.empty()) {
-    std::string delimiterString = std::string(1, GetFileSystemPathDelimiter());
-    // On Windows, check if the platform specific delimiter is used. If not,
-    // fallback on the delimiter "/"
-    size_t delimiterPosition = inUtf8Path.find_last_of(delimiterString);
-    if (std::string::npos == delimiterPosition) {
-      delimiterString = "/";
-    }
-
-    std::string networkPrefix = delimiterString + delimiterString;
-    if (HasPrefix(inUtf8Path, networkPrefix)) {
-      std::string pathWithoutNetworkPrefix = inUtf8Path.substr(
-        networkPrefix.length(), inUtf8Path.length() - networkPrefix.length());
-      if (
-        pathWithoutNetworkPrefix.find_first_of(delimiterString)
-        == pathWithoutNetworkPrefix.find_last_of(delimiterString))
-        return true;
-    }
+  if (inUtf8Path.empty()) {
+    return false;
+  }
+  const std::string networkPrefix = "\\\\";
+  if (!HasPrefix(inUtf8Path, networkPrefix)) {
+    return false;
+  }
+  std::string pathWithoutNetworkPrefix = inUtf8Path.substr(
+    networkPrefix.length(), inUtf8Path.length() - networkPrefix.length());
+  const auto pos = pathWithoutNetworkPrefix.find('\\');
+  if (
+    pos == std::string::npos || pos == pathWithoutNetworkPrefix.length() - 1) {
+    return true;
   }
 
   return false;
@@ -187,11 +182,11 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
 
   const std::string parent = inPath.substr(0, pos);
 
-	// Special handling "C:\\"
-	if (HasSuffix(parent, ":\\"))
-		return parent;
-	else if (HasSuffix(parent, ":"))
-		return parent + "\\";
+  // Special handling "C:\\"
+  if (HasSuffix(parent, ":\\"))
+    return parent;
+  else if (HasSuffix(parent, ":"))
+    return parent + "\\";
 
   // Trim trailing delimiters again
   pos = parent.find_last_not_of(delimiter);
