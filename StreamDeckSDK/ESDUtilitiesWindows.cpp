@@ -161,22 +161,10 @@ std::string ESDUtilities::AddPathComponent(
 }
 
 std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
-  //
-  // Use the platform specific delimiter
-  //
-  std::string delimiterString = std::string(1, GetFileSystemPathDelimiter());
-
-  //
-  // On Windows, check if the platform specific delimiter is used.
-  // If not, fallback on the delimiter "/"
-  //
-  size_t delimiterPosition = inPath.find_last_of(delimiterString);
-  if (std::string::npos == delimiterPosition) {
-    delimiterString = "/";
-  }
+  const char delimiter = GetFileSystemPathDelimiter();
 
   // Special handling "C:\\" or "C:/"
-  if (HasSuffix(inPath, ":" + delimiterString))
+  if (HasSuffix(inPath, ":" + delimiter))
     return inPath;
 
   if (IsNetworkDriveRoot(inPath))
@@ -185,48 +173,31 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
   //
   // Remove the trailing delimiters
   //
-  std::string pathWithoutTrailingDelimiters = inPath;
-  while (pathWithoutTrailingDelimiters.length() > delimiterString.length()
-         && HasSuffix(pathWithoutTrailingDelimiters, delimiterString)) {
-    pathWithoutTrailingDelimiters = pathWithoutTrailingDelimiters.substr(
-      0, pathWithoutTrailingDelimiters.length() - delimiterString.length());
+  size_t pos = inPath.find_last_not_of(delimiter);
+  if (pos == std::string::npos)
+    return "";
+  const std::string pathWithoutTrailingDelimiters = inPath.substr(0, pos + 1);
+
+  pos = pathWithoutTrailingDelimiters.find_last_of(delimiter);
+  if (pos == std::string::npos) {
+    if (HasSuffix(pathWithoutTrailingDelimiters, ":"))
+      return pathWithoutTrailingDelimiters + delimiter;
+    return "";
   }
 
-  size_t pos = pathWithoutTrailingDelimiters.find_last_of(delimiterString);
-  if (std::string::npos != pos) {
-    std::string foundPath = inPath.substr(0, pos);
+  const std::string parent = inPath.substr(0, pos);
 
-    // Special handling "C:\\"
-    if (HasSuffix(foundPath, ":\\"))
-      return foundPath;
-    else if (HasSuffix(foundPath, ":"))
-      return foundPath + "\\";
+	// Special handling "C:\\"
+	if (HasSuffix(parent, ":\\"))
+		return parent;
+	else if (HasSuffix(parent, ":"))
+		return parent + "\\";
 
-    //
-    // Remove the trailing delimiters
-    //
-    std::string foundPathWithoutTrailingDelimiters = foundPath;
-    while (foundPathWithoutTrailingDelimiters.length()
-             > delimiterString.length()
-           && HasSuffix(foundPathWithoutTrailingDelimiters, delimiterString)) {
-      foundPathWithoutTrailingDelimiters
-        = foundPathWithoutTrailingDelimiters.substr(
-          0, foundPathWithoutTrailingDelimiters.length()
-               - delimiterString.length());
-    }
-
-    if (foundPathWithoutTrailingDelimiters.empty() && delimiterString == "/") {
-      return "/";
-    }
-
-    return foundPathWithoutTrailingDelimiters;
-  }
-
-  // Special handling "C:"
-  if (HasSuffix(pathWithoutTrailingDelimiters, ":"))
-    return pathWithoutTrailingDelimiters + delimiterString;
-
-  return "";
+  // Trim trailing delimiters again
+  pos = parent.find_last_not_of(delimiter);
+  if (pos == std::string::npos)
+    return "";
+  return parent.substr(0, pos + 1);
 }
 
 std::string ESDUtilities::GetPluginDirectoryPath() {
