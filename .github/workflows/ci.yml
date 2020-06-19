@@ -35,7 +35,7 @@ jobs:
           name: StreamDeckSDK.cmake
           path: build/StreamDeckSDK.cmake
     strategy:
+      fail-fast: false
       matrix:
-        fail-fast: false
         os: [windows, macos, ubuntu]
         build-type: [Release, Debug]
