@@ -16,11 +16,6 @@ namespace {
 ESDConnectionManager* sConnectionManager = nullptr;
 }// namespace
 
-#ifdef __APPLE__
-void ESDLogger::SetWin32DebugPrefix(const std::string& prefix) {
-}
-#endif
-
 void ESDLogger::SetConnectionManager(ESDConnectionManager* conn) {
   sConnectionManager = conn;
 }

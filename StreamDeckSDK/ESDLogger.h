@@ -13,7 +13,6 @@ class ESDConnectionManager;
 class ESDLogger final {
  public:
   ESDLogger() = delete;
-  static void SetWin32DebugPrefix(const std::string& mPrefix);
   static void SetConnectionManager(ESDConnectionManager* conn);
 
   template <typename Tfmt, typename... Targs>
@@ -32,8 +31,8 @@ class ESDLogger final {
 #endif
 
  private:
-  static void LogToSystem(const std::string& message);
   static void LogToStreamDeckSoftware(const std::string& message);
+  static void LogToSystem(const std::string& message);
 #ifdef _MSC_VER
   static void LogToSystem(const std::wstring& message);
 #endif

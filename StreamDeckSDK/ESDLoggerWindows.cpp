@@ -9,12 +9,9 @@
 #include <string>
 
 #include "ESDLogger.h"
+#include "ESDUtilities.h"
 
 namespace {
-std::string sPrefix;
-std::wstring sWidePrefix;
-std::map<std::string, std::wstring> sWideContexts;
-
 std::wstring MakeWideString(const std::string& str) {
   const int wlen = MultiByteToWideChar(
     CP_UTF8, NULL, str.data(), (int)str.size(), NULL, NULL);
@@ -25,20 +22,34 @@ std::wstring MakeWideString(const std::string& str) {
 }
 
 std::wstring GetWideContext(const char* context) {
-  auto it = sWideContexts.find(context);
-  if (it != sWideContexts.end()) {
+  static std::map<std::string, std::wstring> cache;
+
+  auto it = cache.find(context);
+  if (it != cache.end()) {
     return it->second;
   }
   auto wstr = MakeWideString(context);
-  sWideContexts[context] = wstr;
+  cache[context] = wstr;
   return wstr;
 }
-}// namespace
 
-void ESDLogger::SetWin32DebugPrefix(const std::string& prefix) {
-  sPrefix = prefix;
-  sWidePrefix = MakeWideString(prefix);
+std::string GetWin32DebugPrefixA() {
+  static std::string cache;
+  if (cache.empty()) {
+    cache = ESDUtilities::GetFileName(ESDUtilities::GetPluginExecutablePath());
+  }
+  return cache;
 }
+
+std::wstring GetWin32DebugPrefixW() {
+  static std::wstring cache;
+  if (cache.empty()) {
+    cache = MakeWideString(GetWin32DebugPrefixA());
+  }
+  return cache;
+}
+
+}// namespace
 
 void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
   const auto wbuf
@@ -56,11 +67,11 @@ void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
 }
 
 void ESDLogger::LogToSystem(const std::string& message) {
-  const auto buf = sPrefix + message;
+  const auto buf = GetWin32DebugPrefixA() + message;
   OutputDebugStringA(buf.c_str());
 }
 
 void ESDLogger::LogToSystem(const std::wstring& message) {
-  const auto buf = sWidePrefix + message;
+  const auto buf = GetWin32DebugPrefixW() + message;
   OutputDebugStringW(buf.c_str());
 }
