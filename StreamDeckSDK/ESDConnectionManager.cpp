@@ -45,7 +45,7 @@ void ESDConnectionManager::OnFail(
     }
   }
 
-  ESDDebugfmt("Failed with reason: {}", reason);
+  ESDDebug("Failed with reason: {}", reason);
 }
 
 void ESDConnectionManager::OnClose(
@@ -61,7 +61,7 @@ void ESDConnectionManager::OnClose(
     }
   }
 
-  ESDDebugfmt("Close with reason: {}", reason);
+  ESDDebug("Close with reason: {}", reason);
 }
 
 void ESDConnectionManager::OnMessage(
@@ -70,7 +70,7 @@ void ESDConnectionManager::OnMessage(
   if (
     inMsg != NULL && inMsg->get_opcode() == websocketpp::frame::opcode::text) {
     std::string message = inMsg->get_payload();
-    ESDDebugfmt("OnMessage: {}", message);
+    ESDDebug("OnMessage: {}", message);
 
     try {
       json receivedJson = json::parse(message);
@@ -158,7 +158,7 @@ void ESDConnectionManager::Run() {
     WebsocketClient::connection_ptr connection
       = mWebsocket.get_connection(uri, ec);
     if (ec) {
-      ESDDebugfmt("Connect initialization error: {}", ec.message());
+      ESDDebug("Connect initialization error: {}", ec.message());
       return;
     }
 
@@ -175,7 +175,7 @@ void ESDConnectionManager::Run() {
   } catch (websocketpp::exception const& e) {
     // Prevent an unused variable warning in release builds
     (void)e;
-    ESDDebugfmt("Websocket threw an exception: {}", e.what());
+    ESDDebug("Websocket threw an exception: {}", e.what());
   }
 }
 
