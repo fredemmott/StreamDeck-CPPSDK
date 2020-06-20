@@ -15,6 +15,7 @@ LICENSE file.
 #include <unistd.h>
 
 #include "ESDUtilities.h"
+#include "ESDLogger.h"
 
 void ESDUtilities::DoSleep(int inMilliseconds) {
   usleep(1000 * inMilliseconds);
@@ -43,18 +44,23 @@ std::string ESDUtilities::AddPathComponent(
 }
 
 std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
-  const char delimiter = '/';
-  const auto first_delim = inPath.find_first_of(delimiter);
+  if (inPath.empty()) {
+    return "/";
+  }
+  if (inPath[0] != '/') {
+    ESDDebug("Relative paths are not supported");
+    return {};
+  }
 
-  auto idx = inPath.find_last_not_of(delimiter);
+  auto idx = inPath.find_last_not_of('/');
   if (idx == std::string::npos) {
-    return inPath;
+    return "/";
   }
   const auto trimmed(inPath.substr(0, idx + 1));
 
-  idx = trimmed.find_last_of(delimiter);
-  if (idx == first_delim) {
-    return inPath;
+  idx = trimmed.find_last_of('/');
+  if (idx == 0) {
+    return "/";
   }
   return trimmed.substr(0, idx);
 }
