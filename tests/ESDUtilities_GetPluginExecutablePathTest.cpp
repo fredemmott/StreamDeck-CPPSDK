@@ -13,15 +13,15 @@ bool test_main() {
   const auto filename_start = source.find_last_of("/\\");
   const auto filename = source.substr(filename_start + 1);
   const auto extension_start = filename.find_last_of('.');
-  const auto expected_basename = filename.substr(0, extension_start);
+  const auto expected_noext = filename.substr(0, extension_start);
 
 #ifdef _MSC_VER
-  const std::string expected = expected_basename + ".exe";
+  const std::string expected_filename = expected_noext + ".exe";
 #else
-  const std::string expected = expected_basename;
+  const std::string expected_filename = expected_noext;
 #endif
   const auto path = ESDUtilities::GetPluginExecutablePath();
-  const auto actual_basename = ESDUtilities::GetFileName(path);
-  CHECK(path, expected_basename, actual_basename);
+  const auto actual_filename = ESDUtilities::GetFileName(path);
+  CHECK(path, expected_filename, actual_filename);
   return test.result();
 }
