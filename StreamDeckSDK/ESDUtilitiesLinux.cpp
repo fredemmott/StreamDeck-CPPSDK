@@ -11,5 +11,5 @@ std::string ESDUtilities::GetPluginExecutablePath() {
   char buf[1024];
   const auto res = ::readlink("/proc/self/exe", buf, sizeof(buf));
   assert(res > 0);
-  return buf;
+  return std::string(buf, res);
 }
