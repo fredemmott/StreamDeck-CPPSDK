@@ -21,8 +21,8 @@ std::string ESDUtilities::GetPluginExecutablePath() {
     uint32_t bufsize = 0;
     _NSGetExecutablePath(nullptr, &bufsize);
     char buf[bufsize];
-    const auto success = _NSGetExecutablePath(buf, &bufsize);
-    assert(success);
+    const auto result = _NSGetExecutablePath(buf, &bufsize);
+    assert(result == 0);
     path = std::string(buf);
   }
   return path;
