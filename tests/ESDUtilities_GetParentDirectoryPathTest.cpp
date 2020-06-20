@@ -3,39 +3,10 @@
 // the LICENSE file.
 
 #include <StreamDeckSDK/ESDUtilities.h>
-#include <fmt/format.h>
 
-#include <iostream>
 #include <map>
-#include <string>
 
-namespace {
-
-class Test {
- public:
-  bool result() {
-    return mFailures.empty();
-  }
-
-  template <typename Tid, typename Tout>
-  void check(const Tid& id, const Tout& expected, const Tout& actual) {
-    if (expected == actual) {
-      fmt::print("OK: {}\n", id);
-      return;
-    }
-    fmt::print(
-      "FAIL: {}\n  Expected:\n    {}\n  Actual:\n    {}\n", id, expected,
-      actual);
-    mFailures.push_back(fmt::format("{}", id));
-  }
-
- private:
-  std::vector<std::string> mFailures;
-};
-
-#define CHECK(id, expected, actual) test.check(id, expected, actual)
-
-}
+#include "Test.h"
 
 bool test_main() {
   const std::map<std::string, std::string> data = {
