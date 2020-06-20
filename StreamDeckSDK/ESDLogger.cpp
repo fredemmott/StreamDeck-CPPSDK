@@ -40,4 +40,8 @@ void ESDLogger::LogToSystem(const std::string& message) {
   os_log_with_type(
     OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message.c_str());
 }
+#elif !defined(_MSVC)
+void ESDLogger::LogToSystem(const std::string& message) {
+  assert(false /* not implemented */ );
+}
 #endif
