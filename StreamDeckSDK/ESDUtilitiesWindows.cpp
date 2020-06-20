@@ -162,8 +162,13 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
   if (HasSuffix(inPath, ":" + delimiter))
     return inPath;
 
-  if (IsNetworkDriveRoot(inPath))
-    return inPath;
+  if (IsNetworkDriveRoot(inPath)) {
+    const auto last = inPath.find_last_not_of('\\');
+    if (last == std::string::npos) {
+      return "";
+    }
+    return inPath.substr(0, last + 1);
+  }
 
   //
   // Remove the trailing delimiters
