@@ -26,6 +26,9 @@ target_link_libraries(
   json
   websocketpp
 )
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+  target_link_libraries(StreamDeckSDK PUBLIC pthread)
+endif()
 
 file(GLOB HEADERS *.h)
 set_target_properties(StreamDeckSDK PROPERTIES PUBLIC_HEADER "${HEADERS}")
