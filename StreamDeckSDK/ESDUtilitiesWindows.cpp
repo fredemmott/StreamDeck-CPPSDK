@@ -20,27 +20,24 @@ LICENSE file.
 namespace {
 const char sPreferredDelimiter = '\\';
 const char sValidDelimiters[] = {sPreferredDelimiter, '/', NULL};
-}// namespace
 
-void ESDUtilities::DoSleep(int inMilliseconds) {
-  Sleep(inMilliseconds);
-}
-
-static bool HasPrefix(
+// TODO(C++20): replace with std::string::starts_with
+bool HasPrefix(
   const std::string& inString,
   const std::string& inPrefix) {
   return (inString.length() >= inPrefix.length()) && (inPrefix.length() > 0)
          && (inString.compare(0, inPrefix.length(), inPrefix) == 0);
 }
 
-static bool HasSuffix(
+// TODO(C++20): replace with std::string::ends_with
+bool HasSuffix(
   const std::string& inString,
   const std::string& inSuffix) {
   return (inString.length() >= inSuffix.length()) && (inSuffix.length() > 0)
          && (inString.compare(inString.size() - inSuffix.size(), inSuffix.size(), inSuffix) == 0);
 }
 
-static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
+bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
   if (inUtf8Path.empty()) {
     return false;
   }
@@ -57,6 +54,23 @@ static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
   }
 
   return false;
+}
+
+std::string GetExtension(const std::string& inPath) {
+	const std::string fileName = ESDUtilities::GetFileName(inPath);
+	size_t pos = fileName.find_last_of(".");
+	if (std::string::npos != pos && ((pos + 1) != fileName.length())) {
+		return fileName.substr(pos);
+	} else {
+		return "";
+	}
+}
+
+
+}// namespace
+
+void ESDUtilities::DoSleep(int inMilliseconds) {
+  Sleep(inMilliseconds);
 }
 
 std::string ESDUtilities::GetFileName(const std::string& inPath) {
@@ -112,16 +126,6 @@ std::string ESDUtilities::GetFileName(const std::string& inPath) {
   // Fallback
   //
   return pathWithoutTrailingDelimiter;
-}
-
-static std::string GetExtension(const std::string& inPath) {
-  const std::string fileName = ESDUtilities::GetFileName(inPath);
-  size_t pos = fileName.find_last_of(".");
-  if (std::string::npos != pos && ((pos + 1) != fileName.length())) {
-    return fileName.substr(pos);
-  } else {
-    return "";
-  }
 }
 
 std::string ESDUtilities::AddPathComponent(
