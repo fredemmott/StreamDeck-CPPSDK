@@ -45,10 +45,18 @@ bool test_parent_dir() {
     {"C:\\Foo\\Bar", "C:\\Foo"},
     {"C:\\Foo\\Bar\\Baz", "C:\\Foo\\Bar"},
     {"D:\\Foo\\Bar\\Baz", "D:\\Foo\\Bar"},
+    {"D:/Foo/Bar/Baz", "D:/Foo/Bar"},
+    {"C:/Foo\\Bar/Baz", "C:/Foo\\Bar"},
+    {"C:\\Foo/", "C:\\" },
+    {"C:\\Foo/Bar/", "C:\\Foo" },
+    {"C:/", "C:/"},
+    {"C:/Foo", "C:\\"},
     {"\\\\foo\\bar", "\\\\foo"},
     {"\\\\foo\\bar\\baz", "\\\\foo\\bar"},
     {"\\\\foo\\", "\\\\foo"},
-    {"\\\\foo", "\\\\foo"}
+    {"\\\\foo", "\\\\foo"},
+    {"\\\\foo/", "\\\\foo"},
+    {"\\\\foo/bar/baz", "\\\\foo/bar"},
 #else
     {"a", "b" } // intentionally fail
 #endif

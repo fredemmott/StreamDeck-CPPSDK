@@ -18,14 +18,12 @@ LICENSE file.
 #include "windows.h"
 
 namespace {
-  // Preferred Delimiter
-  const char sPreferredDelimiter = '\\';
-  // Alternative Delimiters
-  const std::string sValidDelimiters("/\\");
-}
+const char sPreferredDelimiter = '\\';
+const char sValidDelimiters[] = {sPreferredDelimiter, '/', NULL};
+}// namespace
 
-  void ESDUtilities::DoSleep(int inMilliseconds) {
-    Sleep(inMilliseconds);
+void ESDUtilities::DoSleep(int inMilliseconds) {
+  Sleep(inMilliseconds);
 }
 
 static bool HasPrefix(
@@ -52,7 +50,7 @@ static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
   }
   std::string pathWithoutNetworkPrefix = inUtf8Path.substr(
     networkPrefix.length(), inUtf8Path.length() - networkPrefix.length());
-  const auto pos = pathWithoutNetworkPrefix.find('\\');
+  const auto pos = pathWithoutNetworkPrefix.find_first_of(sValidDelimiters);
   if (
     pos == std::string::npos || pos == pathWithoutNetworkPrefix.length() - 1) {
     return true;
@@ -156,15 +154,13 @@ std::string ESDUtilities::AddPathComponent(
 }
 
 std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
-  const char delimiter = sPreferredDelimiter;
-
   if (HasSuffix(inPath, ":\\") || HasSuffix(inPath, ":/")) {
     return inPath;
   }
 
   if (IsNetworkDriveRoot(inPath)) {
     // Trim trailing slashes
-    const auto last = inPath.find_last_not_of(sPreferredDelimiter);
+    const auto last = inPath.find_last_not_of(sValidDelimiters);
     if (last == std::string::npos) {
       return "";
     }
@@ -174,28 +170,29 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
   //
   // Remove the trailing delimiters
   //
-  size_t pos = inPath.find_last_not_of(delimiter);
+  size_t pos = inPath.find_last_not_of(sValidDelimiters);
   if (pos == std::string::npos)
     return "";
   const std::string pathWithoutTrailingDelimiters = inPath.substr(0, pos + 1);
 
-  pos = pathWithoutTrailingDelimiters.find_last_of(delimiter);
+  pos = pathWithoutTrailingDelimiters.find_last_of(sValidDelimiters);
   if (pos == std::string::npos) {
     if (HasSuffix(pathWithoutTrailingDelimiters, ":"))
-      return pathWithoutTrailingDelimiters + delimiter;
+      return pathWithoutTrailingDelimiters + sPreferredDelimiter;
     return "";
   }
 
   const std::string parent = inPath.substr(0, pos);
 
-  // Special handling "C:\\"
-  if (HasSuffix(parent, ":\\"))
+  if (HasSuffix(parent, ":\\") || HasSuffix(parent, ":/")) {
     return parent;
-  else if (HasSuffix(parent, ":"))
-    return parent + "\\";
+  }
+  if (HasSuffix(parent, ":")) {
+    return parent + sPreferredDelimiter;
+  }
 
   // Trim trailing delimiters again
-  pos = parent.find_last_not_of(delimiter);
+  pos = parent.find_last_not_of(sValidDelimiters);
   if (pos == std::string::npos)
     return "";
   return parent.substr(0, pos + 1);
