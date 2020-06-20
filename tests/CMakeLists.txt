@@ -1,20 +1,22 @@
-add_library(
-  ESDUtilities_GetParentDirectoryPathTestImpl
-  ESDUtilities_GetParentDirectoryPathTest.cpp
-)
-set_target_properties(
-  ESDUtilities_GetParentDirectoryPathTestImpl
-  PROPERTIES
-  CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF
-)
-target_link_libraries(ESDUtilities_GetParentDirectoryPathTestImpl PRIVATE StreamDeckSDK)
+file(GLOB TESTS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*Test.cpp")
+foreach(TEST_SOURCE ${TESTS})
+  string(REPLACE ".cpp" "" TEST "${TEST_SOURCE}")
+  # Build as a shared library so that we can test that
+  # ESDUtilities::GetPluginExecutablePath() returns the executable name,
+  # not the shared object/DLL name
+  add_library("${TEST}Impl" "${TEST_SOURCE}")
+  target_link_libraries("${TEST}Impl" PRIVATE StreamDeckSDK)
+  add_executable("${TEST}" main.cpp)
+  target_link_libraries("${TEST}" "${TEST}Impl")
 
-add_executable(
-  ESDUtilities_GetParentDirectoryPathTest
-  main.cpp
-)
-target_link_libraries(ESDUtilities_GetParentDirectoryPathTest ESDUtilities_GetParentDirectoryPathTestImpl)
-
-add_test(NAME ESDUtilities_GetParentDirectoryPath COMMAND ESDUtilities_GetParentDirectoryPathTest)
+  set_target_properties(
+    "${TEST}Impl"
+    PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+  )
+  add_test(
+    NAME "${TEST}" COMMAND "${TEST}"
+  )
+endforeach()
