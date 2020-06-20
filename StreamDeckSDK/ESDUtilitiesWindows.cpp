@@ -17,8 +17,15 @@ LICENSE file.
 #include "ESDUtilities.h"
 #include "windows.h"
 
-void ESDUtilities::DoSleep(int inMilliseconds) {
-  Sleep(inMilliseconds);
+namespace {
+  // Preferred Delimiter
+  const char sPreferredDelimiter = '\\';
+  // Alternative Delimiters
+  const std::string sValidDelimiters("/\\");
+}
+
+  void ESDUtilities::DoSleep(int inMilliseconds) {
+    Sleep(inMilliseconds);
 }
 
 static bool HasPrefix(
@@ -33,11 +40,6 @@ static bool HasSuffix(
   const std::string& inSuffix) {
   return (inString.length() >= inSuffix.length()) && (inSuffix.length() > 0)
          && (inString.compare(inString.size() - inSuffix.size(), inSuffix.size(), inSuffix) == 0);
-}
-
-static char GetFileSystemPathDelimiter() {
-  // In Windows both slash and backslash are allowed
-  return '\\';
 }
 
 static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
@@ -60,11 +62,9 @@ static bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
 }
 
 std::string ESDUtilities::GetFileName(const std::string& inPath) {
-  //
   // Use the platform specific delimiter
   //
-  std::string delimiterString = std::string(1, GetFileSystemPathDelimiter());
-
+  std::string delimiterString = std::string(1, sPreferredDelimiter);
   //
   // On Windows, check if the platform specific delimiter is used.
   // If not, fallback on the delimiter "/"
@@ -132,7 +132,7 @@ std::string ESDUtilities::AddPathComponent(
   if (inPath.size() <= 0)
     return inComponentToAdd;
 
-  char delimiter = GetFileSystemPathDelimiter();
+  char delimiter = sPreferredDelimiter;
   char lastChar = inPath[inPath.size() - 1];
 
   bool pathEndsWithDelimiter = (delimiter == lastChar) || ('/' == lastChar);
@@ -145,7 +145,7 @@ std::string ESDUtilities::AddPathComponent(
   else if (pathEndsWithDelimiter || compStartsWithDelimiter)
     result = inPath + inComponentToAdd;
   else
-    result = inPath + GetFileSystemPathDelimiter() + inComponentToAdd;
+    result = inPath + std::string(1, sPreferredDelimiter) + inComponentToAdd;
 
   for (std::string::size_type i = 0; i < result.size(); i++) {
     if (result[i] == '/')
@@ -156,14 +156,15 @@ std::string ESDUtilities::AddPathComponent(
 }
 
 std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
-  const char delimiter = GetFileSystemPathDelimiter();
+  const char delimiter = sPreferredDelimiter;
 
-  // Special handling "C:\\" or "C:/"
-  if (HasSuffix(inPath, ":" + delimiter))
+  if (HasSuffix(inPath, ":\\") || HasSuffix(inPath, ":/")) {
     return inPath;
+  }
 
   if (IsNetworkDriveRoot(inPath)) {
-    const auto last = inPath.find_last_not_of('\\');
+    // Trim trailing slashes
+    const auto last = inPath.find_last_not_of(sPreferredDelimiter);
     if (last == std::string::npos) {
       return "";
     }
