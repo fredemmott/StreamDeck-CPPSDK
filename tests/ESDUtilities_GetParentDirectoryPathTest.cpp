@@ -35,7 +35,9 @@ class Test {
 
 #define CHECK(id, expected, actual) test.check(id, expected, actual)
 
-bool test_parent_dir() {
+}
+
+bool test_main() {
   const std::map<std::string, std::string> data = {
 #ifdef _MSC_VER
     {"C:\\", "C:\\"},
@@ -73,10 +75,4 @@ bool test_parent_dir() {
     CHECK(in, expected, actual);
   }
   return test.result();
-}
-
-}// namespace
-
-bool test_main() {
-  return test_parent_dir();
 }

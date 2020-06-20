@@ -1,20 +1,20 @@
 add_library(
-  ESDUtilititesPathTestImpl
-  ESDUtilititesPathTest.cpp
+  ESDUtilities_GetParentDirectoryPathTestImpl
+  ESDUtilities_GetParentDirectoryPathTest.cpp
 )
 set_target_properties(
-  ESDUtilititesPathTestImpl
+  ESDUtilities_GetParentDirectoryPathTestImpl
   PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
 )
-target_link_libraries(ESDUtilititesPathTestImpl PRIVATE StreamDeckSDK)
+target_link_libraries(ESDUtilities_GetParentDirectoryPathTestImpl PRIVATE StreamDeckSDK)
 
 add_executable(
-	ESDUtilititesPathTest
-	main.cpp
+  ESDUtilities_GetParentDirectoryPathTest
+  main.cpp
 )
-target_link_libraries(ESDUtilititesPathTest ESDUtilititesPathTestImpl)
+target_link_libraries(ESDUtilities_GetParentDirectoryPathTest ESDUtilities_GetParentDirectoryPathTestImpl)
 
-add_test(NAME ESDUtilititesPathTest COMMAND ESDUtilititesPathTest)
+add_test(NAME ESDUtilities_GetParentDirectoryPath COMMAND ESDUtilities_GetParentDirectoryPathTest)
