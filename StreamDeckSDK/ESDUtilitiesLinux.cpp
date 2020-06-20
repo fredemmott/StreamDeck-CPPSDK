@@ -4,6 +4,12 @@
 
 #include "ESDUtilities.h"
 
+#include <unistd.h>
+#include <cassert>
+
 std::string ESDUtilities::GetPluginExecutablePath() {
-  abort();
+  char buf[1024];
+  const auto res = ::readlink("/proc/self/exe", buf, sizeof(buf));
+  assert(res > 0);
+  return buf;
 }
