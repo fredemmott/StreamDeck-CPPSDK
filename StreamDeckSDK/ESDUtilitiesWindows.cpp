@@ -58,7 +58,7 @@ bool IsNetworkDriveRoot(const std::string& inUtf8Path) {
 
 std::string GetExtension(const std::string& inPath) {
 	const std::string fileName = ESDUtilities::GetFileName(inPath);
-	size_t pos = fileName.find_last_of(".");
+	size_t pos = fileName.find_last_of('.');
 	if (std::string::npos != pos && ((pos + 1) != fileName.length())) {
 		return fileName.substr(pos);
 	} else {
