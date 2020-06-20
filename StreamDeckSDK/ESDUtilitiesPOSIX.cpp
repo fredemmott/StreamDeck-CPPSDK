@@ -14,8 +14,19 @@ LICENSE file.
 #include <fmt/format.h>
 #include <unistd.h>
 
-#include "ESDUtilities.h"
 #include "ESDLogger.h"
+#include "ESDUtilities.h"
+
+namespace {
+// Remove trailing delimiters
+std::string TrimRight(const std::string& in) {
+  const auto idx = in.find_last_not_of('/');
+  if (idx == std::string::npos) {
+    return "/";
+  }
+  return in.substr(0, idx + 1);
+}
+}// namespace
 
 void ESDUtilities::DoSleep(int inMilliseconds) {
   usleep(1000 * inMilliseconds);
@@ -52,13 +63,9 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
     return {};
   }
 
-  auto idx = inPath.find_last_not_of('/');
-  if (idx == std::string::npos) {
-    return "/";
-  }
-  const auto trimmed(inPath.substr(0, idx + 1));
+  const auto trimmed(TrimRight(inPath));
 
-  idx = trimmed.find_last_of('/');
+  const auto idx = trimmed.find_last_of('/');
   if (idx == 0) {
     return "/";
   }
@@ -66,27 +73,15 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
 }
 
 std::string ESDUtilities::GetFileName(const std::string& inPath) {
-  //
-  // Use the platform specific delimiter
-  //
-  auto delimiter = '/';
-
-  //
-  // Remove the trailing delimiters
-  //
-  const auto lastNonDelim = inPath.find_last_not_of(delimiter);
-  if (lastNonDelim == std::string::npos) {
-    return std::string();
+    // Re-use the same code for special casing
+  const auto parent = GetParentDirectoryPath(inPath);
+  if (parent.length() >= inPath.length()) {
+    return parent;
   }
 
-  const auto normalized = inPath.substr(0, lastNonDelim + 1);
-
-  const auto delimIdx = inPath.find_last_of(delimiter);
-  if (delimIdx == std::string::npos) {
-    return normalized;
-  }
-
-  return normalized.substr(delimIdx + 1);
+  const auto trimmed = TrimRight(inPath);
+  const auto pos = trimmed.find_last_of('/');
+  return trimmed.substr(pos + 1);
 }
 
 std::string ESDUtilities::GetPluginDirectoryPath() {
