@@ -27,11 +27,11 @@ bool test_main() {
     {"\\\\foo\\bar\\baz", "baz"},
 #else
     {"/", "/"},
-    {"/foo", "/foo"},
-    {"/foo/", "/foo"},
-    {"/foo/bar", "/foo/bar"},
-    {"/foo/bar/", "/foo/bar"},
-    {"/foo/bar.so", "/foo/bar.so"},
+    {"/foo", "foo"},
+    {"/foo/", "foo"},
+    {"/foo/bar", "bar"},
+    {"/foo/bar/", "bar"},
+    {"/foo/bar.so", "bar.so"},
 #endif
   };
   Test test;
