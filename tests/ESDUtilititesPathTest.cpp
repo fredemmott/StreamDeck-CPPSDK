@@ -47,8 +47,8 @@ bool test_parent_dir() {
     {"D:\\Foo\\Bar\\Baz", "D:\\Foo\\Bar"},
     {"D:/Foo/Bar/Baz", "D:/Foo/Bar"},
     {"C:/Foo\\Bar/Baz", "C:/Foo\\Bar"},
-    {"C:\\Foo/", "C:\\" },
-    {"C:\\Foo/Bar/", "C:\\Foo" },
+    {"C:\\Foo/", "C:\\"},
+    {"C:\\Foo/Bar/", "C:\\Foo"},
     {"C:/", "C:/"},
     {"C:/Foo", "C:\\"},
     {"\\\\foo\\bar", "\\\\foo"},
@@ -58,7 +58,13 @@ bool test_parent_dir() {
     {"\\\\foo/", "\\\\foo"},
     {"\\\\foo/bar/baz", "\\\\foo/bar"},
 #else
-    {"a", "b" } // intentionally fail
+    {"/", "/"},
+    {"/foo", "/"},
+    {"/foo/", "/"},
+    {"/foo/bar", "/foo"},
+    {"/foo/bar/", "/foo"},
+    {"/foo/bar/baz", "/foo/bar"},
+    {"/foo/bar/baz/", "/foo/bar"},
 #endif
   };
   Test test;
