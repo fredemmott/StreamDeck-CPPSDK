@@ -22,17 +22,13 @@ const char sPreferredDelimiter = '\\';
 const char sValidDelimiters[] = {sPreferredDelimiter, '/', NULL};
 
 // TODO(C++20): replace with std::string::starts_with
-bool HasPrefix(
-  const std::string& inString,
-  const std::string& inPrefix) {
+bool HasPrefix(const std::string& inString, const std::string& inPrefix) {
   return (inString.length() >= inPrefix.length()) && (inPrefix.length() > 0)
          && (inString.compare(0, inPrefix.length(), inPrefix) == 0);
 }
 
 // TODO(C++20): replace with std::string::ends_with
-bool HasSuffix(
-  const std::string& inString,
-  const std::string& inSuffix) {
+bool HasSuffix(const std::string& inString, const std::string& inSuffix) {
   return (inString.length() >= inSuffix.length()) && (inSuffix.length() > 0)
          && (inString.compare(inString.size() - inSuffix.size(), inSuffix.size(), inSuffix) == 0);
 }
@@ -74,7 +70,6 @@ std::string GetExtension(const std::string& inPath) {
     return "";
   }
 }
-
 
 }// namespace
 
