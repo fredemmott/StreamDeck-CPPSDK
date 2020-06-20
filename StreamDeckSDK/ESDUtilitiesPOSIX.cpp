@@ -11,17 +11,13 @@ LICENSE file.
 **/
 //==============================================================================
 
-#include "ESDUtilities.h"
-
-#include <unistd.h>
 #include <fmt/format.h>
+#include <unistd.h>
+
+#include "ESDUtilities.h"
 
 void ESDUtilities::DoSleep(int inMilliseconds) {
   usleep(1000 * inMilliseconds);
-}
-
-static char GetFileSystemPathDelimiter() {
-  return '/';
 }
 
 std::string ESDUtilities::AddPathComponent(
@@ -30,12 +26,10 @@ std::string ESDUtilities::AddPathComponent(
   if (inPath.size() <= 0)
     return inComponentToAdd;
 
-  char delimiter = GetFileSystemPathDelimiter();
   char lastChar = inPath[inPath.size() - 1];
 
-  bool pathEndsWithDelimiter = (delimiter == lastChar) || ('/' == lastChar);
-  bool compStartsWithDelimiter
-    = (delimiter == inComponentToAdd[0]) || ('/' == inComponentToAdd[0]);
+  bool pathEndsWithDelimiter = lastChar == '/';
+  bool compStartsWithDelimiter = inComponentToAdd[0] == '/';
 
   std::string result;
   if (pathEndsWithDelimiter && compStartsWithDelimiter)
@@ -43,13 +37,13 @@ std::string ESDUtilities::AddPathComponent(
   else if (pathEndsWithDelimiter || compStartsWithDelimiter)
     result = inPath + inComponentToAdd;
   else
-    result = inPath + GetFileSystemPathDelimiter() + inComponentToAdd;
+    result = inPath + '/' + inComponentToAdd;
 
   return result;
 }
 
 std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
-  const char delimiter = GetFileSystemPathDelimiter();
+  const char delimiter = '/';
   const auto first_delim = inPath.find_first_of(delimiter);
 
   auto idx = inPath.find_last_not_of(delimiter);
@@ -69,7 +63,7 @@ std::string ESDUtilities::GetFileName(const std::string& inPath) {
   //
   // Use the platform specific delimiter
   //
-  auto delimiter = GetFileSystemPathDelimiter();
+  auto delimiter = '/';
 
   //
   // Remove the trailing delimiters
@@ -90,11 +84,10 @@ std::string ESDUtilities::GetFileName(const std::string& inPath) {
 }
 
 std::string ESDUtilities::GetPluginDirectoryPath() {
-
   static std::string dir;
   if (dir.empty()) {
     const std::string executable(GetPluginExecutablePath());
-    const auto search = fmt::format(".sdPlugin{}", GetFileSystemPathDelimiter());
+    const auto search = fmt::format(".sdPlugin/");
     const auto idx = executable.rfind(search);
     dir = executable.substr(0, idx + search.size() - 1);
   }
