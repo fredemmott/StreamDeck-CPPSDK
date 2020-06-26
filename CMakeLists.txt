@@ -60,6 +60,7 @@ install(
   DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}/StreamDeckSDK"
 )
+
 get_target_property(
   ASIO_INCLUDE_DIRS
   asio
@@ -77,6 +78,19 @@ install(
   DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}"
 )
+
+get_target_property(
+  FMT_INCLUDE_DIRS
+  fmt
+  INTERFACE_INCLUDE_DIRECTORIES
+)
+install(
+  DIRECTORY
+  "${FMT_INCLUDE_DIRS}/fmt"
+  DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}"
+)
+
 get_target_property(
   JSON_INCLUDE_DIRS
   json
@@ -88,6 +102,7 @@ install(
   DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}"
 )
+
 get_target_property(
   WEBSOCKETPP_INCLUDE_DIRS
   websocketpp
