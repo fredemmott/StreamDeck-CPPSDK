@@ -41,7 +41,11 @@ void ESDLogger::LogToSystem(const std::string& message) {
     OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message.c_str());
 }
 #elif !defined(_MSC_VER)
+#include <iostream>
+#include <iostream>
+#include <iostream>
+#include <iostream>
 void ESDLogger::LogToSystem(const std::string& message) {
-  assert(false /* not implemented */ );
+  std::cerr << message << std::endl;
 }
 #endif

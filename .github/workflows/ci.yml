@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   build:
     name: ${{matrix.os}}/${{matrix.build-type}}
-    runs-on: ${{matrix.os}}-latest
+    runs-on: ${{matrix.runs-on}}
     steps:
       - uses: actions/checkout@v2
       - name: Make build directory
@@ -37,5 +37,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows, macos, ubuntu]
+        os: [windows, macos, linux]
         build-type: [Release, Debug]
+      with:
+        os: windows
+        runs-on: windows-latest
+      with:
+        os: macos
+        runs-on: macos-latest
+      with:
+        os: linux
+        runs-on: ubuntu-20.04
