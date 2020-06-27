@@ -16,8 +16,19 @@ target_compile_definitions(
   INTERFACE
   ASIO_STANDALONE=1
 )
+
 target_include_directories(
   asio
   INTERFACE
   ${SOURCE_DIR}/asio/include
+)
+
+install(
+	DIRECTORY
+  ${SOURCE_DIR}/asio/include/
+	DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}"
+  FILES_MATCHING
+  PATTERN "*.hpp"
+  PATTERN "*.ipp"
 )

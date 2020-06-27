@@ -26,3 +26,10 @@ target_compile_definitions(
   INTERFACE
   ASIO_STANDALONE=1
 )
+
+install(
+	DIRECTORY
+	"${SOURCE_DIR}/websocketpp"
+	DESTINATION
+	"${CMAKE_INSTALL_INCLUDEDIR}"
+)

@@ -16,3 +16,10 @@ target_include_directories(
   INTERFACE
   "${SOURCE_DIR}/single_include"
 )
+
+install(
+  DIRECTORY
+  "${SOURCE_DIR}/single_include/"
+  DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}"
+)

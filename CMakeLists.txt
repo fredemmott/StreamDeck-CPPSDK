@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 project(com.fredemmott.streamdeckcppsdk VERSION 2.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -11,6 +13,7 @@ endif()
 
 include_directories("${CMAKE_SOURCE_DIR}")
 
+include(GNUInstallDirs)
 add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
 
@@ -21,7 +24,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
-include(GNUInstallDirs)
 set(
   SOURCE_URL_TYPE
   GIT_REPOSITORY CACHE STRING "StreamDeckSDK.cmake: path of source repository"
@@ -37,8 +39,6 @@ set(
   CACHE STRING "StreamDeckSDK.cmake: type of source repository version id"
 )
 set(
-  SOURCE_REF
-  master
   CACHE STRING "StreamDeckSDK.cmake: source repository version ID"
 )
 configure_file(
@@ -52,67 +52,6 @@ install(
   ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
   DESTINATION
   ${CMAKE_INSTALL_DATADIR}
-)
-install(
-  TARGETS
-  StreamDeckSDK
-  PUBLIC_HEADER
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}/StreamDeckSDK"
-)
-
-get_target_property(
-  ASIO_INCLUDE_DIRS
-  asio
-  INTERFACE_INCLUDE_DIRECTORIES
-)
-install(
-  DIRECTORY
-  "${ASIO_INCLUDE_DIRS}/asio"
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-install(
-  FILES
-  "${ASIO_INCLUDE_DIRS}/asio.hpp"
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-
-get_target_property(
-  FMT_INCLUDE_DIRS
-  fmt
-  INTERFACE_INCLUDE_DIRECTORIES
-)
-install(
-  DIRECTORY
-  "${FMT_INCLUDE_DIRS}/fmt"
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-
-get_target_property(
-  JSON_INCLUDE_DIRS
-  json
-  INTERFACE_INCLUDE_DIRECTORIES
-)
-install(
-  DIRECTORY
-  "${JSON_INCLUDE_DIRS}/nlohmann"
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-
-get_target_property(
-  WEBSOCKETPP_INCLUDE_DIRS
-  websocketpp
-  INTERFACE_INCLUDE_DIRECTORIES
-)
-install(
-  DIRECTORY
-  "${WEBSOCKETPP_INCLUDE_DIRS}/websocketpp"
-  DESTINATION
-  "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 add_custom_target(
