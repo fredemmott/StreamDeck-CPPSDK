@@ -27,8 +27,8 @@ void ESDLogger::LogToStreamDeckSoftware(const std::string& message) {
   sConnectionManager->LogMessage(message);
 }
 
-void ESDLogger::LogMessage(const char* context, const std::string& msg) {
-  const auto message = fmt::format(FMT_STRING("{}: {}"), context, msg);
+void ESDLogger::LogMessage(const std::string& context, const std::string& msg) {
+  const auto message = fmt::format(FMT_STRING("{}: {}"), context.substr(context.find_last_of("/\\") + 1), msg);
   LogToStreamDeckSoftware(message);
 #ifndef NDEBUG
   LogToSystem(message);
@@ -40,7 +40,7 @@ void ESDLogger::LogToSystem(const std::string& message) {
   os_log_with_type(
     OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message.c_str());
 }
-#elif !defined(_MSVC)
+#elif !defined(_MSC_VER)
 void ESDLogger::LogToSystem(const std::string& message) {
   assert(false /* not implemented */ );
 }

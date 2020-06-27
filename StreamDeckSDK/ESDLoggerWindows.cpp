@@ -21,14 +21,14 @@ std::wstring MakeWideString(const std::string& str) {
   return wstr;
 }
 
-std::wstring GetWideContext(const char* context) {
+std::wstring GetWideContext(const std::string& context) {
   static std::map<std::string, std::wstring> cache;
 
   auto it = cache.find(context);
   if (it != cache.end()) {
     return it->second;
   }
-  auto wstr = MakeWideString(context);
+  auto wstr = MakeWideString(context.substr(context.find_last_of("/\\") + 1));
   cache[context] = wstr;
   return wstr;
 }
@@ -67,11 +67,11 @@ void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
 }
 
 void ESDLogger::LogToSystem(const std::string& message) {
-  const auto buf = GetWin32DebugPrefixA() + message;
+  const auto buf = fmt::format("[{}] {}", GetWin32DebugPrefixA(), message);
   OutputDebugStringA(buf.c_str());
 }
 
 void ESDLogger::LogToSystem(const std::wstring& message) {
-  const auto buf = GetWin32DebugPrefixW() + message;
+  const auto buf = fmt::format(L"[{}] {}", GetWin32DebugPrefixW(), message);
   OutputDebugStringW(buf.c_str());
 }

@@ -6,7 +6,7 @@ set(
   ESDMain.cpp
 )
 if (WIN32)
-  list(APPEND SOURCES ESDUtilitiesWindows.cpp)
+  list(APPEND SOURCES ESDUtilitiesWindows.cpp ESDLoggerWindows)
 elseif (APPLE)
   list(APPEND SOURCES ESDUtilitiesPOSIX.cpp ESDUtilitiesMac.cpp)
 else()

@@ -15,17 +15,7 @@ class ESDLogger final {
   ESDLogger() = delete;
   static void SetConnectionManager(ESDConnectionManager* conn);
 
-  template <typename Tfmt, typename... Targs>
-  static void LogMessagef(const char* context, Tfmt fmt, Targs... args) {
-    LogMessage(context, fmt::sprintf(fmt, args...));
-  }
-
-  template <typename Tfmt, typename... Targs>
-  static void LogMessage(const char* context, Tfmt fmt, Targs... args) {
-    LogMessage(context, fmt::format(fmt, args...));
-  }
-
-  static void LogMessage(const char* context, const std::string& message);
+  static void LogMessage(const std::string& context, const std::string& message);
 #ifdef _MSC_VER
   static void LogMessage(const char* context, const std::wstring& message);
 #endif
@@ -38,18 +28,30 @@ class ESDLogger final {
 #endif
 };
 
-#define ESDLogf(...) ESDLogger::LogMessagef(__FILE__, __VA_ARGS__)
+#define ESDLogf(format_string, ...) ESDLogger::LogMessage(__FILE__, fmt::sprintf(format_string, __VA_ARGS__))
+
+// The lambda + explicit 'else' block are needed to make VS2019 happy
+#define _ESDLogger_format(str, ...) \
+  ( \
+    [=]() -> decltype(fmt::format(str)) { \
+      if constexpr (std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value == 0) { \
+        return str; \
+      } else { \
+        return fmt::format(FMT_STRING(str), __VA_ARGS__); \
+      } \
+    }() \
+  )
 
 // Not currently possible to handle empty __VA_ARGS__ portably;
 // - MSVC: just works
 // - GCC/Clang: if `##` is prepended, omit the `,` if needed
 // - C++20: __VA_OPT__(,) __VA_ARGS__ -  not yet widely supported.
 #ifdef _MSC_VER
-#define ESDLog(fmt, ...) \
-  ESDLogger::LogMessage(__FILE__, FMT_STRING(fmt), __VA_ARGS__)
+#define ESDLog(str, ...) \
+  ESDLogger::LogMessage(__FILE__, _ESDLogger_format(str, __VA_ARGS__))
 #else
-#define ESDLog(fmt, ...) \
-  ESDLogger::LogMessage(__FILE__, FMT_STRING(fmt), ##__VA_ARGS__)
+#define ESDLog(str, ...) \
+  ESDLogger::LogMessage(__FILE__, _ESDLogger_format(str, ##__VA_ARGS__))
 #endif
 
 #ifndef NDEBUG
