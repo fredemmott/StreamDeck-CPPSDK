@@ -39,10 +39,10 @@ jobs:
       matrix:
         os: [windows, macos, linux]
         build-type: [Release, Debug]
-      include:
-        - os: windows
-          runs-on: windows-latest
-        - os: macos
-          runs-on: macos-latest
-        - os: linux
-          runs-on: ubuntu-20.04
+        include:
+          - os: windows
+            runs-on: windows-latest
+          - os: macos
+            runs-on: macos-latest
+          - os: linux
+            runs-on: ubuntu-20.04
