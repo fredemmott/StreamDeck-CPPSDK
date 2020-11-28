@@ -22,6 +22,13 @@ This library has been bundled with and used by several plugins for since January
   - `ESDConnectionManager::GetGlobalSettings()`
   - `ESDConnectionManager::SetGlobalSettings()`
   - `ESDUtilities::GetFileName()`
+  - Abstractions for multi-action plugins:
+    - `ESDAction`, representing an individual kind of action
+    - `ESDPlugin`, an `ESDBasePlugin` subclass for managing instances of
+      `ESDAction`
+    - `ESDActionWithExternalState`, representing kinds of actions that
+      reflect external state, such as hardware state, or state of other
+      applications like OBS.
 - easier re-use, portability, and extensibility:
   - no use of precompiled headers
   - CMake build system that supports both MacOS and Windows

@@ -11,6 +11,23 @@
 
 class ESDConnectionManager;
 
+/** Class representing a specific action (kind of button).
+ *
+ * A plugin can provide multiple actions, e.g.:
+ * - 'mute on'
+ * - 'mute off'
+ * - 'toggle mute'
+ *
+ * Each of these can be represented by an `ESDAction` subclass.
+ *
+ * This class is intended to be used in conjunction with an `ESDPlugin`
+ * subclass; your `ESDPlugin` subclass should contain minimum logic beyond
+ * storing and instantiating `ESDAction` subclass instances as needed.
+ *
+ * If your action reflects state outside of the plugin (e.g. hardware state,
+ * the current time, state in another application such as OBS), you may want
+ * to use `ESDActionWithExternalState`.
+ */
 class ESDAction {
  public:
   ESDAction(ESDConnectionManager* esd_connection, const std::string& context);

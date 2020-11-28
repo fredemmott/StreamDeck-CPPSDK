@@ -11,7 +11,22 @@
 
 class ESDAction;
 
+/** Coordinator class for `ESDAction`-based plugins.
+ *
+ * Plugins should:
+ * - create one or more subclasses of `ESDAction`, one for each action type.
+ * - create exactly one subclass of `ESDPlugin`, which implements
+ *   `GetOrCreateAction()` to retrieve instances of an `ESDAction`.
+ */
 class ESDPlugin : public ESDBasePlugin {
+ protected:
+  /** Create or retrieve an ESDAction instance for the given action/context.
+   *
+   * Return a null/empty shared_ptr if the action is unrecognized.
+   */
+  virtual std::shared_ptr<ESDAction>
+  GetOrCreateAction(const std::string& action, const std::string& context) = 0;
+
  public:
   ESDPlugin();
   virtual ~ESDPlugin();
@@ -39,12 +54,4 @@ class ESDPlugin : public ESDBasePlugin {
     const std::string& inContext,
     const nlohmann::json& inPayload,
     const std::string& inDevice) override;
-
- protected:
-  /** Create or retrieve an ESDAction instance for the given action/context.
-   *
-   * Return a null/empty shared_ptr if the action is unrecognized.
-   */
-  virtual std::shared_ptr<ESDAction>
-  GetOrCreateAction(const std::string& action, const std::string& context) = 0;
 };

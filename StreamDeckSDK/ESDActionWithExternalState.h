@@ -8,12 +8,13 @@
 
 #include "ESDAction.h"
 
-/** An ESDAction where state can be changed by something other than the
+/** An `ESDAction` where state can be changed by something other than the
  * StreamDeck software.
  *
  * For example:
  * - hardware events
  * - time
+ * - changes in other applications that the plugin interacts with (e.g. OBS)
  *
  * In these cases, you likely want to consider settings to be persistent, and
  * 'settings changed' to be an event in itself. This class removes the settings
@@ -22,6 +23,19 @@
  */
 template <class TSettings>
 class ESDActionWithExternalState : public ESDAction {
+ protected:
+  virtual void SettingsDidChange(
+    const TSettings& old_settings,
+    const TSettings& new_settings)
+    = 0;
+  virtual void WillAppear() {
+  }
+  virtual void KeyUp() {
+  }
+
+  const TSettings& GetSettings() const {
+    return mSettings;
+  }
  public:
   ESDActionWithExternalState(
     ESDConnectionManager* esd_connection,
@@ -50,20 +64,6 @@ class ESDActionWithExternalState : public ESDAction {
   virtual void KeyUp(const nlohmann::json& settings) final {
     DidReceiveSettings(settings);
     KeyUp();
-  }
-
- protected:
-  virtual void SettingsDidChange(
-    const TSettings& old_settings,
-    const TSettings& new_settings)
-    = 0;
-  virtual void WillAppear() {
-  }
-  virtual void KeyUp() {
-  }
-
-  const TSettings& GetSettings() const {
-    return mSettings;
   }
 
  private:
