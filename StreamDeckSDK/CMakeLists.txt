@@ -1,9 +1,11 @@
 set(
   SOURCES
+  ESDAction.cpp
   ESDConnectionManager.cpp
   ESDLogger.cpp
   ESDLocalizer.cpp
   ESDMain.cpp
+  ESDPlugin.cpp
 )
 if (WIN32)
   list(APPEND SOURCES ESDUtilitiesWindows.cpp ESDLoggerWindows)
