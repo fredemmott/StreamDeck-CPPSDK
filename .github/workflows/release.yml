@@ -32,7 +32,7 @@ jobs:
       - run: ls -lR ${{runner.temp}}/artifacts
       - uses: actions/checkout@v2
       - name: Get raw tag name
-        run: echo ::set-env name=VERSION::$(echo ${{github.ref}} | awk -F/ '{print $NF}')
+        run: echo "VERSION=$(echo ${{github.ref}} | awk -F/ '{print $NF}')" >> $GITHUB_ENV
       - name: Configure
         run: |
           cmake . \
@@ -60,7 +60,7 @@ jobs:
       - name: List artifacts
         run: ls -lR
       - name: Get raw tag name
-        run: echo ::set-env name=VERSION::$(echo ${{github.ref}} | awk -F/ '{print $NF}')
+        run: echo "VERSION=$(echo ${{github.ref}} | awk -F/ '{print $NF}')" >> $GITHUB_ENV
       - name: Create draft release
         id: create_release
         uses: actions/create-release@v1
