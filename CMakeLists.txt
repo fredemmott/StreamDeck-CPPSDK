@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
 
 project(com.fredemmott.streamdeckcppsdk VERSION 2.0 LANGUAGES CXX)
 
