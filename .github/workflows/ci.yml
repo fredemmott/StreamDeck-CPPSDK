@@ -22,7 +22,7 @@ jobs:
         working-directory: build
         run: cmake --build . --config ${{matrix.build-type}}
       - name: Run tests
-        unless: matrix.arch == 'arm64'
+        if: matrix.arch != 'arm64'
         working-directory: build
         run: ctest -C ${{matrix.build-type}} --output-on-failure
       - name: Install
