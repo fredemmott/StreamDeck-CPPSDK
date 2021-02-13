@@ -40,6 +40,7 @@ set(
   CACHE STRING "StreamDeckSDK.cmake: type of source repository version id"
 )
 set(
+  SOURCE_REF
   CACHE STRING "StreamDeckSDK.cmake: source repository version ID"
 )
 configure_file(
