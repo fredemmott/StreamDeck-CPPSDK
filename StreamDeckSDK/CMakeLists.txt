@@ -20,6 +20,7 @@ add_library(
   STATIC
   ${SOURCES}
 )
+target_compile_definitions(StreamDeckSDK PRIVATE JSON_USE_IMPLICIT_CONVERSIONS=0)
 target_link_libraries(
   StreamDeckSDK
   PUBLIC

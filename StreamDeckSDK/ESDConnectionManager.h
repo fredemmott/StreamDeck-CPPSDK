@@ -63,6 +63,8 @@ class ESDConnectionManager {
     const std::string& inProfileName);
   void LogMessage(const std::string& inMessage);
 
+  std::shared_ptr<asio::io_context> GetAsioContext() const;
+
  private:
   // Websocket callbacks
   void OnOpen(
@@ -85,4 +87,5 @@ class ESDConnectionManager {
   websocketpp::connection_hdl mConnectionHandle;
   WebsocketClient mWebsocket;
   ESDBasePlugin* mPlugin = nullptr;
+  std::shared_ptr<asio::io_context> mAsioContext;
 };
