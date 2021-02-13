@@ -23,3 +23,13 @@ target_include_directories(
   INTERFACE
   ${SOURCE_DIR}/asio/include
 )
+
+install(
+       DIRECTORY
+  ${SOURCE_DIR}/asio/include/
+       DESTINATION
+  "${CMAKE_INSTALL_INCLUDEDIR}"
+  FILES_MATCHING
+  PATTERN "*.hpp"
+  PATTERN "*.ipp"
+)
