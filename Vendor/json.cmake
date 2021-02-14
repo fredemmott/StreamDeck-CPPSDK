@@ -2,8 +2,8 @@ include(ExternalProject)
 
 ExternalProject_Add(
   json_source
-  URL "https://github.com/nlohmann/json/releases/download/v3.7.3/include.zip"
-  URL_HASH SHA512=8efd82a54472335e548d0d5c375b6f2781b4a0f2dbc5aa0acc3f504277ec455e0782046286cf08eb4864ac8bcaa1a9691af8d0259dd71a9e539cfc12e0478eb5
+  URL "https://github.com/nlohmann/json/releases/download/v3.9.1/include.zip"
+  URL_HASH SHA256=6bea5877b1541d353bd77bdfbdb2696333ae5ed8f9e8cc22df657192218cad91
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND ""
