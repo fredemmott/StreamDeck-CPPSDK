@@ -78,7 +78,7 @@ class EPLJSONUtils {
       return defaultValue;
 
     // Return value
-    return *iter;
+    return iter->get<std::string>();
   }
 
   //! Get string
@@ -89,7 +89,7 @@ class EPLJSONUtils {
     if (!j.is_string())
       return defaultString;
 
-    return j;
+    return j.get<std::string>();
   }
 
   //! Get bool by name
@@ -107,7 +107,7 @@ class EPLJSONUtils {
       return defaultValue;
 
     // Return value
-    return *iter;
+    return iter->get<bool>();
   }
 
   //! Get integer by name
@@ -125,7 +125,7 @@ class EPLJSONUtils {
       return defaultValue;
 
     // Return value
-    return *iter;
+    return iter->get<int>();
   }
 
   //! Get unsigned integer by name
@@ -143,7 +143,7 @@ class EPLJSONUtils {
       return defaultValue;
 
     // Return value
-    return *iter;
+    return iter->get<unsigned int>();
   }
 
   //! Get float by name
@@ -161,6 +161,6 @@ class EPLJSONUtils {
       return defaultValue;
 
     // Return value
-    return *iter;
+    return iter->get<float>();
   }
 };
