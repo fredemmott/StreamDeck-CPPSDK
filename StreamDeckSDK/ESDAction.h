@@ -33,7 +33,7 @@ class ESDConnectionManager;
  */
 class ESDAction {
  public:
-  ESDAction(ESDConnectionManager* esd_connection, const std::string& context);
+  ESDAction(ESDConnectionManager* esd_connection, const std::string& action, const std::string& context);
   virtual ~ESDAction();
 
   virtual void DidReceiveSettings(const nlohmann::json& settings);
@@ -55,11 +55,13 @@ class ESDAction {
     const std::string& inBase64ImageString,
     ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware
   );
-  void SetSettings(const nlohmann::json& inSettings);
   void ShowAlert();
   void ShowOK();
+  void SetSettings(const nlohmann::json& inSettings);
+  void SendToPropertyInspector(const nlohmann::json& inSettings);
 
  private:
+  std::string mAction;
   std::string mContext;
   ESDConnectionManager* mESDConnection = nullptr;
 };

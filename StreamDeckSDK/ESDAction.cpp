@@ -10,8 +10,9 @@
 
 ESDAction::ESDAction(
   ESDConnectionManager* esd_connection,
+  const std::string& action,
   const std::string& context)
-  : mESDConnection(esd_connection), mContext(context) {
+  : mESDConnection(esd_connection), mAction(action), mContext(context) {
 }
 
 ESDAction::~ESDAction() {
@@ -57,4 +58,12 @@ void ESDAction::ShowAlert() {
 }
 void ESDAction::ShowOK() {
   GetESD()->ShowOKForContext(mContext);
+}
+
+void ESDAction::SendToPropertyInspector(const nlohmann::json& payload) {
+  GetESD()->SendToPropertyInspector(
+    mAction,
+    mContext,
+    payload
+  );
 }
