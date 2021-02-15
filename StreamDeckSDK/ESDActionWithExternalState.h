@@ -39,8 +39,9 @@ class ESDActionWithExternalState : public ESDAction {
  public:
   ESDActionWithExternalState(
     ESDConnectionManager* esd_connection,
+    const std::string& action,
     const std::string& context)
-    : ESDAction(esd_connection, context) {
+    : ESDAction(esd_connection, action, context) {
   }
 
   virtual ~ESDActionWithExternalState() {
