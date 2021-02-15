@@ -22,6 +22,10 @@ std::string ESDAction::GetContext() const {
   return mContext;
 }
 
+std::string ESDAction::GetAction() const {
+  return mAction;
+}
+
 void ESDAction::DidReceiveSettings(const nlohmann::json& json) {
 }
 
