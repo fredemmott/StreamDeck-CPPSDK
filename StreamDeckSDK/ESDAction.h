@@ -6,7 +6,10 @@
 
 #pragma once
 
+#include <StreamDeckSDK/ESDSDKDefines.h>
+
 #include <nlohmann/json.hpp>
+
 #include <string>
 
 class ESDConnectionManager;
@@ -41,6 +44,20 @@ class ESDAction {
  protected:
   std::string GetContext() const;
   ESDConnectionManager* GetESD() const;
+
+  // Convenience wrappers for GetESD()->foo()
+  void SetState(int state);
+  void SetTitle(
+    const std::string& title,
+    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware
+  );
+  void SetImage(
+    const std::string& inBase64ImageString,
+    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware
+  );
+  void SetSettings(const nlohmann::json& inSettings);
+  void ShowAlert();
+  void ShowOK();
 
  private:
   std::string mContext;

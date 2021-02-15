@@ -6,10 +6,11 @@
 
 #include "ESDAction.h"
 
-#include <StreamDeckSDK/EPLJSONUtils.h>
-#include <StreamDeckSDK/ESDLogger.h>
+#include <StreamDeckSDK/ESDConnectionManager.h>
 
-ESDAction::ESDAction(ESDConnectionManager* esd_connection, const std::string& context)
+ESDAction::ESDAction(
+  ESDConnectionManager* esd_connection,
+  const std::string& context)
   : mESDConnection(esd_connection), mContext(context) {
 }
 
@@ -34,4 +35,26 @@ void ESDAction::SendToPlugin(const nlohmann::json& payload) {
 }
 
 void ESDAction::WillAppear(const nlohmann::json& settings) {
+}
+
+void ESDAction::SetState(int state) {
+  GetESD()->SetState(state, mContext);
+}
+
+void ESDAction::SetTitle(const std::string& title, ESDSDKTarget target) {
+  GetESD()->SetTitle(title, mContext, target);
+}
+void ESDAction::SetImage(
+  const std::string& inBase64ImageString,
+  ESDSDKTarget target) {
+  GetESD()->SetImage(inBase64ImageString, mContext, target);
+}
+void ESDAction::SetSettings(const nlohmann::json& inSettings) {
+  GetESD()->SetSettings(inSettings, mContext);
+}
+void ESDAction::ShowAlert() {
+  GetESD()->ShowAlertForContext(mContext);
+}
+void ESDAction::ShowOK() {
+  GetESD()->ShowOKForContext(mContext);
 }
