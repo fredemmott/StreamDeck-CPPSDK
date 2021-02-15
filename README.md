@@ -10,9 +10,10 @@ It is currently based on [a version from 2019-05-27](https://github.com/elgatosf
 - targetted at the 4.3 SDK
 
 This library has been bundled with and used by several plugins for since January 2019:
-- Audio Mute/Mic Mute
+- Audio Mute
 - Audio Switcher
-- Discord Self-Mute/Self-Deafen
+- Discord
+- Streaming Remote
 
 # What's changed from the Elgato SDK?
 
@@ -50,6 +51,7 @@ This library has been bundled with and used by several plugins for since January
     dbgview.exe
 - `nlohmann::json` is no longer aliased in header files
 - uses more recent versions of nlohmann/json, WebSocket++, and chriskohlhoff/asio
+- exposes the asio::io_context used for the streamdeck connection, allowing additional sockets/websockets/named pipes to be used in the same event loop
 - exposes CMake library targets for dependencies
 
 # Adding this to a CMake project
@@ -101,8 +103,6 @@ something like:
 #include <StreamDeckSDK/ESDLogger.h>
 
 int main(int argc, const char** argv) {
-  // Makes it easy to filter in dbgview.exe
-  ESDLogger::Get()->SetWin32DebugPrefix("[MyPluginName] ");
   return esd_main(argc, argv, new MyStreamDeckPlugin());
 }
 ```
@@ -111,8 +111,9 @@ You will then need to do several smaller changes:
 - replace `#include "../Common/Foo.h"` with `#include <StreamDeckSDK/Foo.h>`
 - remove references to `pch.h`
   - if you're using `DebugPrint()`, replace with `#include <StreamDeckSDK/ESDDebug.h>`
-    and call `ESDDebug()` instead - or `ESDLog()` if you want it in the log files
+    and call `ESDDebugf()` instead - or `ESDLogf()` if you want it in the log files
     in release builds
+  - consider migrating to `ESDDebug()` andd `ESDLog()` instead, using `fmt::format`, e.g. `ESDDebug("Foo {}", bar)`
   - otherwise, directly include the header files you want
 - add `#include <nlohmann/json.hpp>` when needed
 - either add `using json = nlohmann::json;`, or replace `json` with `nlohmann::json`
