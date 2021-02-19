@@ -30,6 +30,8 @@ class ESDActionWithExternalState : public ESDAction {
     = 0;
   virtual void WillAppear() {
   }
+  virtual void KeyDown() {
+  }
   virtual void KeyUp() {
   }
 
@@ -65,6 +67,11 @@ class ESDActionWithExternalState : public ESDAction {
   virtual void KeyUp(const nlohmann::json& settings) final {
     DidReceiveSettings(settings);
     KeyUp();
+  }
+
+  virtual void KeyDown(const nlohmann::json& settings) final {
+    DidReceiveSettings(settings);
+    KeyDown();
   }
 
  private:

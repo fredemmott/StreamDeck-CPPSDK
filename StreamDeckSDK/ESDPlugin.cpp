@@ -24,6 +24,19 @@ ESDPlugin::ESDPlugin(): ESDBasePlugin() {
 ESDPlugin::~ESDPlugin() {
 }
 
+void ESDPlugin::KeyDownForAction(
+	const std::string& inAction,
+	const std::string& inContext,
+	const json& inPayload,
+	const std::string& inDeviceID) {
+	auto action = GetOrCreateAction(inAction, inContext);
+	if (!action) {
+		ESDLog("No action for keydown - {} {}", inAction, inContext);
+		return;
+	}
+	action->KeyDown(inPayload["settings"]);
+}
+
 void ESDPlugin::KeyUpForAction(
   const std::string& inAction,
   const std::string& inContext,
