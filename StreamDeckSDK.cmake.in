@@ -25,3 +25,20 @@ target_link_libraries(
 )
 target_include_directories(StreamDeckSDK INTERFACE ${INSTALL_DIR}/include)
 target_compile_definitions(StreamDeckSDK INTERFACE -DASIO_STANDALONE=1)
+
+if (APPLE)
+  set(
+    STREAMDECK_PLUGIN_DIR
+    "$ENV{HOME}/Library/ApplicationSupport/com.elgato.StreamDeck/Plugins"
+  )
+elseif (WIN32)
+  string(
+    REPLACE
+    "\\"
+    "/"
+    STREAMDECK_PLUGIN_DIR
+    "$ENV{appdata}/Elgato/StreamDeck/Plugins"
+  )
+endif()
+set(STREAMDECK_PLUGIN_DIR ${STREAMDECK_PLUGIN_DIR} PARENT_SCOPE)
+message(STATUS "StreamDeck plugin dir: ${STREAMDECK_PLUGIN_DIR}")
