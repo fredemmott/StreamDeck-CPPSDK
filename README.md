@@ -3,7 +3,7 @@
 # What is this?
 
 This is re-usable library derived from Elgato's
-[CPU plugin](https://github.com/elgatosf/streamdeck-cpu).
+[CPU plugin](https://github.com/elgatosf/streamdeck-cpu), targetting MacOS and Windows. Linux is also tested in case Elgato expand support in the future.
 
 It is currently based on [a version from 2019-05-27](https://github.com/elgatosf/streamdeck-cpu/commit/0a9c2557fbe6f829f3456a272672f810291948b3). This is:
 - the latest provided by Elgato as of 2020-06-06
@@ -90,6 +90,26 @@ This is **strongly** discouraged; however if it seems necessary:
 3. `add_subdirectory('StreamDeckCPPSDK/StreamDeckSDK')`
 4. You are now able to directly refer to the `StreamDeckSDK`, `asio`, `json`, and
   `websocketpp` targets.
+
+# Creating new plugins
+
+A [small example](example/) is included.
+
+To build, open Windows Terminal, cmd.exe, Apple Terminal, or iTerm, then:
+
+```
+mkdir example/build
+cd example/build
+cmake ..
+cmake --build . --parallel --config Debug
+cmake --install . --config Debug
+```
+
+When creating your
+
+- update `manifest.json`, `CMakeLists.txt`, and all .cpp and .h files to include your new plugin name and IDs. Your plugin should not contain `com.fredemmott` in any file.
+- replace the `StreamDeckSDK.cmake` file with the one from
+  [the latest release](https://github.com/fredemmott/StreamDeck-CPPSDK/releases/latest)
 
 # Porting from Elgato's code
 
