@@ -1,0 +1,38 @@
+{
+  "Actions": [
+    {
+      "Icon": "actionIcon",
+      "Name": "CPP SDK Demo",
+      "States": [
+        {
+          "Image": "actionDefaultImage"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Demo action",
+      "UUID": "com.fredemmott.cppsdk.demo.myaction"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Fred Emmott",
+  "CodePathMac": "mydemoplugin",
+  "CodePathWin": "mydemoplugin.exe",
+  "Description": "Demo for fredemmott/StreamDeck-CPPSDK",
+  "Name": "CPP SDK Demo",
+  "Icon": "pluginIcon",
+  "Version": "0.1",
+  "OS": [
+    {
+        "Platform": "mac",
+        "MinimumVersion" : "10.11"
+    },
+    {
+        "Platform": "windows",
+        "MinimumVersion" : "10"
+    }
+  ],
+  "Software":
+    {
+        "MinimumVersion" : "4.1"
+    }
+}

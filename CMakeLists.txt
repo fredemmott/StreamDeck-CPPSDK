@@ -18,10 +18,10 @@ include(GNUInstallDirs)
 add_subdirectory(Vendor)
 add_subdirectory(StreamDeckSDK)
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+option(BUILD_LIB_ONLY "Only build the library, not tests etc" OFF)
+
+if(NOT BUILD_LIB_ONLY)
     include(CTest)
-endif()
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
@@ -48,6 +48,19 @@ configure_file(
   StreamDeckSDK.cmake
   @ONLY
 )
+
+if(NOT BUILD_LIB_ONLY)
+  set(SOURCE_URL_TYPE SOURCE_DIR)
+  set(SOURCE_URL "\${CMAKE_CURRENT_SOURCE_DIR}/../")
+  set(SOURCE_REF_TYPE DOWNLOAD_COMMAND)
+  set(SOURCE_REF "\"\"")
+  configure_file(
+    StreamDeckSDK.cmake.in
+    ${CMAKE_CURRENT_LIST_DIR}/example/StreamDeckSDK.cmake
+    @ONLY
+  )
+endif()
+
 install(
   FILES
   ${CMAKE_CURRENT_BINARY_DIR}/StreamDeckSDK.cmake
