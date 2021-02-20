@@ -36,7 +36,7 @@ install(TARGETS mydemoplugin DESTINATION ${CMAKE_INSTALL_PREFIX})
 # If doing a Debug or RelWithDebInfo build, install the debug symbols too
 # On MacOS, these are part of the executable
 if(WIN32)
-  install(FILES "$<TARGET_PDB_FILE:mydemoplugin>" DESTINATION ${CMAKE_INSTALL_PREFIX})
+  install(FILES "$<TARGET_PDB_FILE:mydemoplugin>" DESTINATION ${CMAKE_INSTALL_PREFIX} OPTIONAL)
 endif()
 
 install(FILES manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
