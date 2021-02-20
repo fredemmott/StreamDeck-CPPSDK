@@ -70,6 +70,8 @@ class ESDBasePlugin {
   }
   virtual void DeviceDidDisconnect(const std::string& inDeviceID) {
   }
+  virtual void SystemDidWakeUp() {
+  }
 
   virtual void SendToPlugin(
     const std::string& inAction,

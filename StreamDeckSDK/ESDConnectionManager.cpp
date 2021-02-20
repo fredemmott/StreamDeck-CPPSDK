@@ -108,6 +108,8 @@ void ESDConnectionManager::OnMessage(
         mPlugin->DeviceDidDisconnect(deviceID);
       } else if (event == kESDSDKEventSendToPlugin) {
         mPlugin->SendToPlugin(action, context, payload, deviceID);
+      } else if (event == kESDSDKEventSystemDidWakeUp) {
+        mPlugin->SystemDidWakeUp();
       }
     } catch (...) {
     }
