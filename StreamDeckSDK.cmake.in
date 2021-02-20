@@ -27,12 +27,12 @@ target_link_libraries(
 target_include_directories(StreamDeckSDK INTERFACE ${INSTALL_DIR}/include)
 target_compile_definitions(StreamDeckSDK INTERFACE -DASIO_STANDALONE=1)
 
-if (APPLE)
+if(APPLE)
   set(
     STREAMDECK_PLUGIN_DIR
     "$ENV{HOME}/Library/ApplicationSupport/com.elgato.StreamDeck/Plugins"
   )
-elseif (WIN32)
+elseif(WIN32)
   string(
     REPLACE
     "\\"
@@ -40,9 +40,8 @@ elseif (WIN32)
     STREAMDECK_PLUGIN_DIR
     "$ENV{appdata}/Elgato/StreamDeck/Plugins"
   )
-elseif (UNIX AND NOT APPLE)
+elseif(UNIX AND NOT APPLE)
   target_link_libraries(StreamDeckSDK INTERFACE pthread)
-endif ()
 endif()
 set(
   STREAMDECK_PLUGIN_DIR
