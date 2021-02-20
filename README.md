@@ -7,7 +7,7 @@ This is re-usable library derived from Elgato's
 
 It is currently based on [a version from 2019-05-27](https://github.com/elgatosf/streamdeck-cpu/commit/0a9c2557fbe6f829f3456a272672f810291948b3). This is:
 - the latest provided by Elgato as of 2020-06-06
-- targetted at the 4.3 SDK
+- targetted at the 4.3 SDK - however, StreamDeck-CPPSDK extends this to support the 4.7 SDK
 
 This library has been bundled with and used by several plugins for since January 2019:
 - Audio Mute
