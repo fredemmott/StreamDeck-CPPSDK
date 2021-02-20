@@ -40,6 +40,9 @@ elseif (WIN32)
     STREAMDECK_PLUGIN_DIR
     "$ENV{appdata}/Elgato/StreamDeck/Plugins"
   )
+elseif (UNIX AND NOT APPLE)
+  target_link_libraries(StreamDeckSDK INTERFACE pthread)
+endif ()
 endif()
 set(
   STREAMDECK_PLUGIN_DIR
