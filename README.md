@@ -147,3 +147,10 @@ For example, the CPU plugin was ported by:
 
 Additionally, using CMake makes it easy to automatically build on both platforms
 [using GitHub actions](https://github.com/fredemmott/streamdeck-cpu/commit/8ad6e1c35868965651b583011c63b264b049f841).
+
+# LICENSE
+
+The source code for this project is [MIT-licensed](LICENSE).
+
+Because this is my personal repository, the license you receive to my code is
+from me and not from my employer (Facebook).
