@@ -31,31 +31,31 @@ class ESDPlugin : public ESDBasePlugin {
   ESDPlugin();
   virtual ~ESDPlugin();
 
-	void KeyDownForAction(
+	virtual void KeyDownForAction(
 		const std::string& inAction,
 		const std::string& inContext,
 		const nlohmann::json& inPayload,
 		const std::string& inDeviceID) override;
 
-  void KeyUpForAction(
+  virtual void KeyUpForAction(
     const std::string& inAction,
     const std::string& inContext,
     const nlohmann::json& inPayload,
     const std::string& inDeviceID) override;
 
-  void WillAppearForAction(
+  virtual void WillAppearForAction(
     const std::string& inAction,
     const std::string& inContext,
     const nlohmann::json& inPayload,
     const std::string& inDeviceID) override;
 
-  void SendToPlugin(
+  virtual void SendToPlugin(
     const std::string& inAction,
     const std::string& inContext,
     const nlohmann::json& inPayload,
     const std::string& inDevice) override;
 
-  void DidReceiveSettings(
+  virtual void DidReceiveSettings(
     const std::string& inAction,
     const std::string& inContext,
     const nlohmann::json& inPayload,

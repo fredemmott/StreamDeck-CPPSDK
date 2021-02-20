@@ -33,6 +33,9 @@ ESDConnectionManager* ESDAction::GetESD() const {
   return mESDConnection;
 }
 
+void ESDAction::KeyDown(const nlohmann::json& settings) {
+}
+
 void ESDAction::KeyUp(const nlohmann::json& settings) {
 }
 
