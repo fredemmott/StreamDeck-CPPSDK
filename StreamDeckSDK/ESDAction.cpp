@@ -49,13 +49,19 @@ void ESDAction::SetState(int state) {
   GetESD()->SetState(state, mContext);
 }
 
-void ESDAction::SetTitle(const std::string& title, ESDSDKTarget target) {
-  GetESD()->SetTitle(title, mContext, target);
+void ESDAction::SetTitle(
+  const std::string& title,
+  ESDSDKTarget target,
+  int state
+) {
+  GetESD()->SetTitle(title, mContext, target, state);
 }
 void ESDAction::SetImage(
   const std::string& inBase64ImageString,
-  ESDSDKTarget target) {
-  GetESD()->SetImage(inBase64ImageString, mContext, target);
+  ESDSDKTarget target,
+  int state
+) {
+  GetESD()->SetImage(inBase64ImageString, mContext, target, state);
 }
 void ESDAction::SetSettings(const nlohmann::json& inSettings) {
   GetESD()->SetSettings(inSettings, mContext);

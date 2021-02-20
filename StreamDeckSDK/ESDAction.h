@@ -52,11 +52,13 @@ class ESDAction {
   void SetState(int state);
   void SetTitle(
     const std::string& title,
-    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware
+    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
+    int state = -1
   );
   void SetImage(
     const std::string& inBase64ImageString,
-    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware
+    ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
+    int state = -1
   );
   void ShowAlert();
   void ShowOK();

@@ -41,11 +41,13 @@ class ESDConnectionManager {
   void SetTitle(
     const std::string& inTitle,
     const std::string& inContext,
-    ESDSDKTarget inTarget);
+    ESDSDKTarget inTarget,
+    int state = -1);
   void SetImage(
     const std::string& inBase64ImageString,
     const std::string& inContext,
-    ESDSDKTarget inTarget);
+    ESDSDKTarget inTarget,
+    int state = -1);
   void ShowAlertForContext(const std::string& inContext);
   void ShowOKForContext(const std::string& inContext);
   void SetSettings(

@@ -186,7 +186,8 @@ void ESDConnectionManager::Run() {
 void ESDConnectionManager::SetTitle(
   const std::string& inTitle,
   const std::string& inContext,
-  ESDSDKTarget inTarget) {
+  ESDSDKTarget inTarget,
+  int inState) {
   json jsonObject;
 
   jsonObject[kESDSDKCommonEvent] = kESDSDKEventSetTitle;
@@ -195,6 +196,9 @@ void ESDConnectionManager::SetTitle(
   json payload;
   payload[kESDSDKPayloadTarget] = inTarget;
   payload[kESDSDKPayloadTitle] = inTitle;
+  if (inState >= 0) {
+    payload[kESDSDKPayloadState] = inState;
+  }
   jsonObject[kESDSDKCommonPayload] = payload;
 
   websocketpp::lib::error_code ec;
@@ -205,7 +209,8 @@ void ESDConnectionManager::SetTitle(
 void ESDConnectionManager::SetImage(
   const std::string& inBase64ImageString,
   const std::string& inContext,
-  ESDSDKTarget inTarget) {
+  ESDSDKTarget inTarget,
+  int inState) {
   json jsonObject;
 
   jsonObject[kESDSDKCommonEvent] = kESDSDKEventSetImage;
@@ -221,6 +226,9 @@ void ESDConnectionManager::SetImage(
   else
     payload[kESDSDKPayloadImage]
       = "data:image/png;base64," + inBase64ImageString;
+  if (inState >= 0) {
+    payload[kESDSDKPayloadState] = inState;
+  }
   jsonObject[kESDSDKCommonPayload] = payload;
 
   websocketpp::lib::error_code ec;
