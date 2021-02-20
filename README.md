@@ -17,9 +17,10 @@ This library has been bundled with and used by several plugins for since January
 
 # What's changed from the Elgato SDK?
 
-- additional SDK features:
+- additional SDK features, through to 4.8:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
   - `ESDBasePlugin::DidReceiveSettings()`
+  - `ESDBasePlugin::SystemDidWakeUp()`
   - `ESDConnectionManager::GetGlobalSettings()`
   - `ESDConnectionManager::SetGlobalSettings()`
   - `ESDUtilities::GetFileName()`
