@@ -46,6 +46,11 @@ void ESDConnectionManager::OnFail(
   }
 
   ESDDebug("Failed with reason: {}", reason);
+
+  if (mAsioContext) {
+    ESDDebug("Stopping ASIO context");
+    mAsioContext->stop();
+  }
 }
 
 void ESDConnectionManager::OnClose(
@@ -62,6 +67,11 @@ void ESDConnectionManager::OnClose(
   }
 
   ESDDebug("Close with reason: {}", reason);
+
+  if (mAsioContext) {
+    ESDDebug("Stopping ASIO context");
+    mAsioContext->stop();
+  }
 }
 
 void ESDConnectionManager::OnMessage(
