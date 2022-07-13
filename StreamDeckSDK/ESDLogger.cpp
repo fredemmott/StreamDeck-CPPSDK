@@ -28,7 +28,7 @@ void ESDLogger::LogToStreamDeckSoftware(const std::string& message) {
 }
 
 void ESDLogger::LogMessage(const std::string& context, const std::string& msg) {
-  const auto message = fmt::format(FMT_STRING("{}: {}"), context.substr(context.find_last_of("/\\") + 1), msg);
+  const auto message = ESD::format("{}: {}", context.substr(context.find_last_of("/\\") + 1), msg);
   LogToStreamDeckSoftware(message);
 #ifndef NDEBUG
   LogToSystem(message);

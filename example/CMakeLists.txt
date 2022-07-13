@@ -13,9 +13,6 @@ project(
 
 include("StreamDeckSDK.cmake")
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
-set(CMAKE_CXX_EXTENSIONS false)
 if (MSVC)
   add_definitions("/Zc:__cplusplus -DUNICODE=1")
 endif()
@@ -30,6 +27,13 @@ endif()
 message(STATUS "Install dir: ${CMAKE_INSTALL_PREFIX}")
 
 add_executable(mydemoplugin main.cpp)
+set_target_properties(
+  mydemoplugin
+  PROPERTIES
+  CXX_STANDARD 20
+  CXX_STANDARD_REQUIRED ON
+  CXX_EXTENSIONS OFF
+)
 target_link_libraries(mydemoplugin StreamDeckSDK)
 install(TARGETS mydemoplugin DESTINATION ${CMAKE_INSTALL_PREFIX})
 

@@ -8,7 +8,7 @@ set(
   ESDPlugin.cpp
 )
 if (WIN32)
-  list(APPEND SOURCES ESDUtilitiesWindows.cpp ESDLoggerWindows)
+  list(APPEND SOURCES ESDUtilitiesWindows.cpp ESDLoggerWindows.cpp)
 elseif (APPLE)
   list(APPEND SOURCES ESDUtilitiesPOSIX.cpp ESDUtilitiesMac.cpp)
 else()
@@ -34,7 +34,15 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 endif()
 
 file(GLOB HEADERS *.h)
-set_target_properties(StreamDeckSDK PROPERTIES PUBLIC_HEADER "${HEADERS}")
+set_target_properties(
+  StreamDeckSDK
+  PROPERTIES
+  PUBLIC_HEADER "${HEADERS}"
+  CXX_STANDARD 20
+  CXX_STANDARD_REQUIRED ON
+  CXX_EXTENSIONS OFF
+)
+target_include_directories(StreamDeckSDK PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 install(
   TARGETS

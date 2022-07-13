@@ -11,12 +11,10 @@ using namespace std;
 bool test_main() {
   ESDLog("Hello, world");
   ESDLog("Hello, fmt {}", "world");
-  ESDLogf("Hello, sprintf %s", "world");
 
   #ifdef _MSC_VER
   ESDLog(L"Hello, wide world");
   ESDLog(L"Hello, wide fmt {}", L"world");
-  ESDLogf(L"Hello, wide sprintf %s", L"world");
   #endif
   return true;
 }

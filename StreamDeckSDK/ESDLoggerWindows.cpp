@@ -53,7 +53,7 @@ std::wstring GetWin32DebugPrefixW() {
 
 void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
   const auto wbuf
-    = fmt::format(FMT_STRING(L"{}: {}"), GetWideContext(context), wmsg);
+    = ESD::format(L"{}: {}", GetWideContext(context), wmsg);
 #ifndef NDEBUG
   LogToSystem(wbuf);
 #endif
@@ -67,11 +67,11 @@ void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
 }
 
 void ESDLogger::LogToSystem(const std::string& message) {
-  const auto buf = fmt::format("[{}] {}", GetWin32DebugPrefixA(), message);
+  const auto buf = ESD::format("[{}] {}", GetWin32DebugPrefixA(), message);
   OutputDebugStringA(buf.c_str());
 }
 
 void ESDLogger::LogToSystem(const std::wstring& message) {
-  const auto buf = fmt::format(L"[{}] {}", GetWin32DebugPrefixW(), message);
+  const auto buf = ESD::format(L"[{}] {}", GetWin32DebugPrefixW(), message);
   OutputDebugStringW(buf.c_str());
 }

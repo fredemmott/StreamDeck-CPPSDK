@@ -1,18 +1,14 @@
-cmake_minimum_required(VERSION 3.15)
-
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH NO)
+cmake_minimum_required(VERSION 3.21)
 
 project(com.fredemmott.streamdeckcppsdk VERSION 2.0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-if (MSVC)
-  add_definitions("/Zc:__cplusplus" "-DUNICODE=1")
+if (PROJECT_IS_TOP_LEVEL)
+  set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH NO)
+  if (MSVC)
+    add_compile_options("/Zc:__cplusplus")
+    add_compile_definitions("-DUNICODE=1" "-DWIN32_LEAN_AND_MEAN")
+  endif()
 endif()
-
-include_directories("${CMAKE_SOURCE_DIR}")
 
 include(GNUInstallDirs)
 add_subdirectory(Vendor)

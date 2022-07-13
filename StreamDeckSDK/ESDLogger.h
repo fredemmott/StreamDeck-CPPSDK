@@ -3,8 +3,19 @@
 // the LICENSE file.
 #pragma once
 
+#include <version>
+
+#ifdef __cpp_lib_format
+#include <format>
+namespace ESD {
+using std::format;
+};
+#else
 #include <fmt/format.h>
-#include <fmt/printf.h>
+namespace ESD {
+using fmt::format;
+};
+#endif
 
 #include <string>
 
@@ -30,45 +41,16 @@ class ESDLogger final {
 #endif
 };
 
-#define ESDLogf(format_string, ...) \
-  ESDLogger::LogMessage(__FILE__, fmt::sprintf(format_string, __VA_ARGS__))
+#define ESDLog(formatString, ...) \
+  if constexpr ( \
+    std::tuple_size_v<decltype(std::make_tuple(__VA_ARGS__))> == 0) { \
+    ESDLogger::LogMessage(__FILE__, formatString); \
+  } else { \
+    ESDLogger::LogMessage(__FILE__, ESD::format(formatString, __VA_ARGS__)); \
+  }
 
-// Not currently possible to handle empty __VA_ARGS__ portably;
-// - MSVC: just works
-// - GCC/Clang: if `##` is prepended, omit the `,` if needed
-//
-// - C++20: __VA_OPT__(,) __VA_ARGS__ -  not yet widely supported.
-#ifdef _MSC_VER
-// The lambda + explicit 'else' block are needed to make VS2019 happy
-#define _ESDLogger_format(str, ...) \
-  ([=]() -> decltype(fmt::format(str)) { \
-    if constexpr ( \
-      std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value == 0) { \
-      return str; \
-    } else { \
-      return fmt::format(FMT_STRING(str), __VA_ARGS__); \
-    } \
-  }())
-#define ESDLog(str, ...) \
-  ESDLogger::LogMessage(__FILE__, _ESDLogger_format(str, __VA_ARGS__))
-#else// _MSC_VER
-#define _ESDLogger_format(str, ...) \
-  ([=]() -> decltype(fmt::format(str)) { \
-    if constexpr ( \
-      std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value == 0) { \
-      return str; \
-    } else { \
-      return fmt::format(FMT_STRING(str), ##__VA_ARGS__); \
-    } \
-  }())
-#define ESDLog(str, ...) \
-  ESDLogger::LogMessage(__FILE__, _ESDLogger_format(str, ##__VA_ARGS__))
-#endif
-
-#ifndef NDEBUG
+#ifdef DEBUG
 #define ESDDebug ESDLog
-#define ESDDebugf ESDLogf
 #else
-#define ESDDebug(...) while (0)
-#define ESDDebugf(...) while (0)
+#define ESDDebug(...) while(0)
 #endif

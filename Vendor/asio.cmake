@@ -2,13 +2,11 @@ include(ExternalProject)
 
 ExternalProject_Add(
   asio_source
-  URL https://github.com/chriskohlhoff/asio/archive/asio-1-18-1.tar.gz
-  URL_HASH SHA512=c84e6fca448ed419a976756840f3f4543291a5a7d4f62d4de7c06945b2cd9ececca6633049ad5e36367d60f67a4f2735be017445514ae9fa9497d4af2a4d48f8
+  URL https://github.com/chriskohlhoff/asio/archive/refs/tags/asio-1-22-1.tar.gz
+  URL_HASH SHA256=30cb54a5de5e465d10ec0c2026d6b5917f5e89fffabdbabeb1475846fc9a2cf0
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND ""
-  PATCH_COMMAND
-    git init && git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/asio-7377f941cc9831c4c3cba1e71d3bc29bddf1a700.patch"
 )
 ExternalProject_Get_Property(asio_source SOURCE_DIR)
 add_library(asio INTERFACE)
@@ -25,9 +23,9 @@ target_include_directories(
 )
 
 install(
-       DIRECTORY
+  DIRECTORY
   ${SOURCE_DIR}/asio/include/
-       DESTINATION
+  DESTINATION
   "${CMAKE_INSTALL_INCLUDEDIR}"
   FILES_MATCHING
   PATTERN "*.hpp"
