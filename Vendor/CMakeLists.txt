@@ -1,6 +1,9 @@
 include(ExternalProject)
 
 include(asio.cmake)
-include(fmt.cmake)
 include(json.cmake)
 include(websocketpp.cmake)
+
+if (NOT MSVC)
+  include(fmt.cmake)
+endif ()

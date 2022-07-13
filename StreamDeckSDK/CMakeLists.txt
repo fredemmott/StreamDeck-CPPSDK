@@ -25,10 +25,12 @@ target_link_libraries(
   StreamDeckSDK
   PUBLIC
   asio
-  fmt
   json
   websocketpp
 )
+if (NOT MSVC)
+  target_link_libraries(StreamDeckSDK PUBLIC fmt)
+endif()
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
   target_link_libraries(StreamDeckSDK PUBLIC pthread)
 endif()
