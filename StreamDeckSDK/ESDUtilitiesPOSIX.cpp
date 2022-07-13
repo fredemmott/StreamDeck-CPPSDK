@@ -11,9 +11,9 @@ LICENSE file.
 **/
 //==============================================================================
 
-#include <fmt/format.h>
 #include <unistd.h>
 
+#include "ESDFormat.h"
 #include "ESDLogger.h"
 #include "ESDUtilities.h"
 
@@ -88,7 +88,7 @@ std::string ESDUtilities::GetPluginDirectoryPath() {
   static std::string dir;
   if (dir.empty()) {
     const std::string executable(GetPluginExecutablePath());
-    const auto search = fmt::format(".sdPlugin/");
+    const auto search = ESD::format(".sdPlugin/");
     const auto idx = executable.rfind(search);
     dir = executable.substr(0, idx + search.size() - 1);
   }

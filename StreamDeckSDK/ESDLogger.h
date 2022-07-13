@@ -3,21 +3,9 @@
 // the LICENSE file.
 #pragma once
 
-#include <version>
-
-#ifdef __cpp_lib_format
-#include <format>
-namespace ESD {
-using std::format;
-};
-#else
-#include <fmt/format.h>
-namespace ESD {
-using fmt::format;
-};
-#endif
-
 #include <string>
+
+#include "ESDFormat.h"
 
 class ESDConnectionManager;
 
@@ -30,7 +18,7 @@ class ESDLogger final {
     const std::string& context,
     const std::string& message);
 #ifdef _MSC_VER
-  static void LogMessage(const char* context, const std::wstring& message);
+  static void LogMessage(const std::string& context, const std::wstring& message);
 #endif
 
  private:
@@ -41,16 +29,45 @@ class ESDLogger final {
 #endif
 };
 
-#define ESDLog(formatString, ...) \
-  if constexpr ( \
-    std::tuple_size_v<decltype(std::make_tuple(__VA_ARGS__))> == 0) { \
-    ESDLogger::LogMessage(__FILE__, formatString); \
-  } else { \
-    ESDLogger::LogMessage(__FILE__, ESD::format(formatString, __VA_ARGS__)); \
-  }
+template <class Str>
+void ESDLogWithContext(const std::string& context, Str&& str) {
+  ESDLogger::LogMessage(context, std::forward<Str>(str));
+}
+
+template <class First, class... Rest>
+void ESDLogWithContext(
+  const std::string& context,
+  ESD::format_string<First, Rest...> str,
+  First&& first,
+  Rest&&... rest) {
+  ESDLogger::LogMessage(
+    context,
+    ESD::format(str, std::forward<First>(first), std::forward<Rest>(rest)...));
+}
+
+#ifdef _MSC_VER
+template <class First, class... Rest>
+void ESDLogWithContext(
+  const std::string& context,
+  ESD::format_wstring<First, Rest...> str,
+  First&& first,
+  Rest&&... rest) {
+  ESDLogger::LogMessage(
+    context,
+    ESD::format(str, std::forward<First>(first), std::forward<Rest>(rest)...));
+}
+#define ESDLog(...) ESDLogWithContext(__FILE__, __VA_ARGS__)
+#else
+#define ESDLog(...) ESDLogWithContext(__FILE__, ##__VA_ARGS__)
+#endif
 
 #ifdef DEBUG
-#define ESDDebug ESDLog
+template <class... Args>
+inline void ESDDebug(Args&&... args) {
+  ESDLog(std::forward<Args>(args)...);
+}
 #else
-#define ESDDebug(...) while(0)
+template <class... Args>
+inline void ESDDebug(Args&&...) {
+}
 #endif

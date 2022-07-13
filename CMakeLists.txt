@@ -5,7 +5,11 @@ project(com.fredemmott.streamdeckcppsdk VERSION 2.0.1 LANGUAGES CXX)
 if (PROJECT_IS_TOP_LEVEL)
   set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH NO)
   if (MSVC)
-    add_compile_options("/Zc:__cplusplus")
+    add_compile_options(
+      "/Zc:__cplusplus"
+      "/EHsc"
+      "/diagnostics:caret"
+    )
     add_compile_definitions("-DUNICODE=1" "-DWIN32_LEAN_AND_MEAN")
   endif()
 endif()

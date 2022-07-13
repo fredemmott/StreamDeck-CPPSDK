@@ -4,10 +4,28 @@
 
 #pragma once
 
-#include <fmt/format.h>
+#include <StreamDeckSDK/ESDFormat.h>
 
-#include <vector>
+#include <iostream>
 #include <string>
+#include <vector>
+
+namespace ESD {
+
+void print(std::string_view message) {
+  std::cout << message << std::flush;
+}
+
+template <class First, class... Rest>
+void print(
+  ESD::format_string<First, Rest...> fmt,
+  First&& first,
+  Rest&&... rest) {
+  print(
+    ESD::format(fmt, std::forward<First>(first), std::forward<Rest>(rest)...));
+}
+
+}// namespace ESD
 
 class Test {
  public:
@@ -18,13 +36,13 @@ class Test {
   template <typename Tid, typename Tout>
   void check(const Tid& id, const Tout& expected, const Tout& actual) {
     if (expected == actual) {
-      fmt::print("OK: {}\n", id);
+      ESD::print("OK: {}\n", id);
       return;
     }
-    fmt::print(
+    ESD::print(
       "FAIL: {}\n  Expected:\n    {}\n  Actual:\n    {}\n", id, expected,
       actual);
-    mFailures.push_back(fmt::format("{}", id));
+    mFailures.push_back(ESD::format("{}", id));
   }
 
  private:

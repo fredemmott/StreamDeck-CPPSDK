@@ -51,7 +51,7 @@ std::wstring GetWin32DebugPrefixW() {
 
 }// namespace
 
-void ESDLogger::LogMessage(const char* context, const std::wstring& wmsg) {
+void ESDLogger::LogMessage(const std::string& context, const std::wstring& wmsg) {
   const auto wbuf
     = ESD::format(L"{}: {}", GetWideContext(context), wmsg);
 #ifndef NDEBUG
