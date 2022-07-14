@@ -56,6 +56,7 @@ if(NOT BUILD_LIB_ONLY)
     StreamDeckSDK.cmake.in
     ${CMAKE_CURRENT_LIST_DIR}/example/StreamDeckSDK.cmake
     @ONLY
+    NEWLINE_STYLE UNIX
   )
 endif()
 
