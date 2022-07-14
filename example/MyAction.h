@@ -16,11 +16,6 @@ class MyAction final : public ESDAction {
     ShowOK();
     // Only log in debug builds (C++20-style format strings):
     ESDDebug("Settings: {}", settings.dump());
-    // ... or with sprintf-style:
-    // Need to store the std::string as otherwise the c_str() of temporary
-    // is invalid
-    const auto buf = settings.dump();
-    ESDDebugf("Settings: %s", buf.c_str());
   }
 
   virtual void WillAppear(const nlohmann::json& settings) override {

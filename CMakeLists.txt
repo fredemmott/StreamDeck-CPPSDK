@@ -52,8 +52,6 @@ configure_file(
 if(NOT BUILD_LIB_ONLY)
   set(SOURCE_URL_TYPE SOURCE_DIR)
   set(SOURCE_URL "\${CMAKE_CURRENT_SOURCE_DIR}/../")
-  set(SOURCE_REF_TYPE DOWNLOAD_COMMAND)
-  set(SOURCE_REF "\"\"")
   configure_file(
     StreamDeckSDK.cmake.in
     ${CMAKE_CURRENT_LIST_DIR}/example/StreamDeckSDK.cmake
