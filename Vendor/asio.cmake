@@ -11,6 +11,13 @@ ExternalProject_Add(
 ExternalProject_Get_Property(asio_source SOURCE_DIR)
 add_library(asio INTERFACE)
 add_dependencies(asio asio_source)
+set_target_properties(
+  asio
+  PROPERTIES
+  CXX_STANDARD 20
+  CXX_STANDARD_REQUIRED ON
+  CXX_EXTENSIOSN OFF
+)
 target_compile_definitions(
   asio
   INTERFACE

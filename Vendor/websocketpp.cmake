@@ -11,6 +11,13 @@ ExternalProject_Add(
 ExternalProject_Get_Property(websocketpp_source SOURCE_DIR)
 add_library(websocketpp INTERFACE)
 add_dependencies(websocketpp websocketpp_source)
+set_target_properties(
+  websocketpp
+  PROPERTIES
+  CXX_STANDARD 17
+  CXX_STANDARD_REQUIRED ON
+  CXX_EXTENSIONS OFF
+)
 target_include_directories(
   websocketpp
   INTERFACE
@@ -26,6 +33,13 @@ target_compile_definitions(
   INTERFACE
   ASIO_STANDALONE=1
 )
+if(MSVC)
+  target_compile_options(
+    websocketpp
+    INTERFACE
+    "/Zc:__cplusplus"
+  )
+endif()
 
 install(
 	DIRECTORY
