@@ -44,7 +44,7 @@ set_target_properties(
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
 )
-target_include_directories(StreamDeckSDK PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
+target_include_directories(StreamDeckSDK PUBLIC "${CMAKE_CURRENT_LIST_DIR}/..")
 
 install(
   TARGETS
