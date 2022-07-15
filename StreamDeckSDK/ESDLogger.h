@@ -62,10 +62,7 @@ void ESDLogWithContext(
 #endif
 
 #ifndef NDEBUG
-template <class... Args>
-inline void ESDDebug(Args&&... args) {
-  ESDLog(std::forward<Args>(args)...);
-}
+#define ESDDebug ESDLog
 #else
 template <class... Args>
 inline void ESDDebug(Args&&...) {
