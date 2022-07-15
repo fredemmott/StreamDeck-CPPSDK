@@ -3,11 +3,14 @@ include(FetchContent)
 FetchContent_Declare(
   StreamDeckSDK
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../
-  GIT_TAG
-  EXCLUDE_FROM_ALL
+  GIT_TAG none
 )
 
-FetchContent_MakeAvailable(StreamDeckSDK)
+FetchContent_GetProperties(StreamDeckSDK)
+if(NOT streamdecksdk_POPULATED)
+  FetchContent_Populate(StreamDeckSDK)
+  add_subdirectory("${streamdecksdk_SOURCE_DIR}" "${streamdecksdk_BINARY_DIR}" EXCLUDE_FROM_ALL)
+endif()
 
 if(APPLE)
   set(
@@ -22,8 +25,6 @@ elseif(WIN32)
     STREAMDECK_PLUGIN_DIR
     "$ENV{appdata}/Elgato/StreamDeck/Plugins"
   )
-elseif(UNIX AND NOT APPLE)
-  target_link_libraries(StreamDeckSDK INTERFACE pthread)
 endif()
 
 set(
