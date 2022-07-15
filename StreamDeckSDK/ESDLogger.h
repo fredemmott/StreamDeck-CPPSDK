@@ -61,7 +61,7 @@ void ESDLogWithContext(
 #define ESDLog(...) ESDLogWithContext(__FILE__, ##__VA_ARGS__)
 #endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
 template <class... Args>
 inline void ESDDebug(Args&&... args) {
   ESDLog(std::forward<Args>(args)...);
