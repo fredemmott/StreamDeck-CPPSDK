@@ -2,6 +2,7 @@ set(
   SOURCES
   ESDAction.cpp
   ESDConnectionManager.cpp
+  ESDUtilities.cpp
   ESDLogger.cpp
   ESDLocalizer.cpp
   ESDMain.cpp

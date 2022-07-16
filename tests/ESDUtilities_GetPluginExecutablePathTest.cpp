@@ -21,7 +21,7 @@ bool test_main() {
   const std::string expected_filename = expected_noext;
 #endif
   const auto path = ESDUtilities::GetPluginExecutablePath();
-  const auto actual_filename = ESDUtilities::GetFileName(path);
-  CHECK(path, expected_filename, actual_filename);
+  const auto actual_filename = path.filename().string();
+  CHECK(path.string(), expected_filename, actual_filename);
   return test.result();
 }

@@ -15,15 +15,17 @@ LICENSE file.
 
 #include <mach-o/dyld.h>
 
-std::string ESDUtilities::GetPluginExecutablePath() {
-  static std::string path;
-  if (path.empty()) {
-    uint32_t bufsize = 0;
-    _NSGetExecutablePath(nullptr, &bufsize);
-    char buf[bufsize];
-    const auto result = _NSGetExecutablePath(buf, &bufsize);
-    assert(result == 0);
-    path = std::string(buf);
+std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
+  static std::filesystem::path sPath;
+  if (!sPath.empty()) {
+    return sPath;
   }
-  return path;
+
+  uint32_t bufsize = 0;
+  _NSGetExecutablePath(nullptr, &bufsize);
+  char buf[bufsize];
+  const auto result = _NSGetExecutablePath(buf, &bufsize);
+  assert(result == 0);
+  sPath = { std::string_view { buf } };
+  return sPath;
 }

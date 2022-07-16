@@ -83,14 +83,3 @@ std::string ESDUtilities::GetFileName(const std::string& inPath) {
   const auto pos = trimmed.find_last_of('/');
   return trimmed.substr(pos + 1);
 }
-
-std::string ESDUtilities::GetPluginDirectoryPath() {
-  static std::string dir;
-  if (dir.empty()) {
-    const std::string executable(GetPluginExecutablePath());
-    const auto search = ESD::format(".sdPlugin/");
-    const auto idx = executable.rfind(search);
-    dir = executable.substr(0, idx + search.size() - 1);
-  }
-  return dir;
-}

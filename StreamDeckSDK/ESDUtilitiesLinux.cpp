@@ -7,9 +7,15 @@
 #include <unistd.h>
 #include <cassert>
 
-std::string ESDUtilities::GetPluginExecutablePath() {
+std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
+  static std::filesystem::path sPath;
+  if (!sPath.empty()) {
+    return sPath;
+  }
+
   char buf[1024];
-  const auto res = ::readlink("/proc/self/exe", buf, sizeof(buf));
-  assert(res > 0);
-  return std::string(buf, res);
+  const auto bufLen = ::readlink("/proc/self/exe", buf, sizeof(buf));
+  assert(bufLen > 0);
+  sPath = { std::string_view { buf, bufLen } };
+  return sPath;
 }

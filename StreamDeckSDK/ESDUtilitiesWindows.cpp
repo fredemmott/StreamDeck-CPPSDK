@@ -176,9 +176,14 @@ std::string ESDUtilities::GetPluginDirectoryPath() {
   return sPluginPath;
 }
 
-std::string ESDUtilities::GetPluginExecutablePath() {
-  char* native = nullptr;
-  _get_pgmptr(&native);
-  assert(native);
-  return native;
+
+std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
+  static std::filesystem:path sPath;
+  if (!sPath.empty()) {
+    return sPath;
+  }
+  wchar_t buf[MAX_PATH];
+  auto bufLen = GetModuleFileNameW(NULL, buf, MAX_PATH);
+  sPath = { std::wstring_view { buf, bufLen } };
+  return sPath;
 }

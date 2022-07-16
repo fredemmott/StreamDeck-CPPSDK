@@ -13,14 +13,15 @@ LICENSE file.
 
 #pragma once
 
+#include <filesystem>
 #include <string>
 
 class ESDUtilities {
  public:
   // Get the path of the .sdPlugin bundle
-  static std::string GetPluginDirectoryPath();
+  static std::filesystem::path GetPluginDirectoryPath();
   // Get the path of the full executable
-  static std::string GetPluginExecutablePath();
+  static std::filesystem::path GetPluginExecutablePath();
 
   [[deprecated("use std::this_thread::sleep_for() instead")]]
   static void DoSleep(int inMilliseconds);
