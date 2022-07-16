@@ -147,43 +147,14 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
   return TrimRight(parent);
 }
 
-std::string ESDUtilities::GetPluginDirectoryPath() {
-  static std::string sPluginPath;
-
-  if (sPluginPath.empty()) {
-    std::string pathString(GetPluginExecutablePath());
-
-    while (!pathString.empty()) {
-      if (pathString == "/" || HasSuffix(pathString, ":\\")) {
-        break;
-      }
-
-      std::string pathExtension = GetExtension(pathString);
-      if (pathExtension == ".sdPlugin") {
-        sPluginPath = pathString;
-        break;
-      }
-
-      std::string parentPath = GetParentDirectoryPath(pathString);
-      if (parentPath != pathString) {
-        pathString = parentPath;
-      } else {
-        break;
-      }
-    }
-  }
-
-  return sPluginPath;
-}
-
 
 std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
-  static std::filesystem:path sPath;
+  static std::filesystem::path sPath;
   if (!sPath.empty()) {
     return sPath;
   }
   wchar_t buf[MAX_PATH];
   auto bufLen = GetModuleFileNameW(NULL, buf, MAX_PATH);
-  sPath = { std::wstring_view { buf, bufLen } };
+  sPath = std::wstring_view { buf, bufLen };
   return sPath;
 }

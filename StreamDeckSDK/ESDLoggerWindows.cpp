@@ -36,7 +36,7 @@ std::wstring GetWideContext(const std::string& context) {
 std::string GetWin32DebugPrefixA() {
   static std::string cache;
   if (cache.empty()) {
-    cache = ESDUtilities::GetFileName(ESDUtilities::GetPluginExecutablePath());
+    cache = ESDUtilities::GetPluginExecutablePath().filename().string();
   }
   return cache;
 }
@@ -44,7 +44,7 @@ std::string GetWin32DebugPrefixA() {
 std::wstring GetWin32DebugPrefixW() {
   static std::wstring cache;
   if (cache.empty()) {
-    cache = MakeWideString(GetWin32DebugPrefixA());
+    cache = ESDUtilities::GetPluginExecutablePath().filename().wstring();
   }
   return cache;
 }
