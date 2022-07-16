@@ -14,12 +14,6 @@ LICENSE file.
 #pragma once
 
 //
-// Current version of the SDK
-//
-
-#define kESDSDKVersion 2
-
-//
 // Common base-interface
 //
 
