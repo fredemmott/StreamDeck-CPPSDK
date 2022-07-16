@@ -164,5 +164,6 @@ enum {
   kESDSDKDeviceType_StreamDeckMini = 1,
   kESDSDKDeviceType_StreamDeckXL = 2,
   kESDSDKDeviceType_StreamDeckMobile = 3,
-  kESDSDKDeviceType_CorsairGKeys = 4
+  kESDSDKDeviceType_CorsairGKeys = 4,
+  kESDSDKDeviceType_StreamDeckPedal = 5
 };
