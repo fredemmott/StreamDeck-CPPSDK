@@ -47,6 +47,8 @@ This library has been bundled with and used by several plugins for since January
     release builds
   - adds `ESDDebug()` macro, which is an alias for `ESDLog()` in debug builds, and
     does nothing in release build
+  - uses C++20 `std::format`-stye format strings, e.g. `ESDDebug("foo {} baz", "bar")`; `std::format` is used where
+    available, otherwise `fmt`
   - MacOS: disables debug log censorship in Catalina and above
   - Win32: adds option for debug log prefix; this is useful for filtering in
     dbgview.exe
@@ -132,9 +134,9 @@ You will then need to do several smaller changes:
 - replace `#include "../Common/Foo.h"` with `#include <StreamDeckSDK/Foo.h>`
 - remove references to `pch.h`
   - if you're using `DebugPrint()`, replace with `#include <StreamDeckSDK/ESDDebug.h>`
-    and call `ESDDebugf()` instead - or `ESDLogf()` if you want it in the log files
+    and call `ESDDebug()` instead - or `ESDLog()` if you want it in the log files
     in release builds
-  - consider migrating to `ESDDebug()` andd `ESDLog()` instead, using `fmt::format`, e.g. `ESDDebug("Foo {}", bar)`
+  - migrate any format strings to `std::format`-style format strings
   - otherwise, directly include the header files you want
 - add `#include <nlohmann/json.hpp>` when needed
 - either add `using json = nlohmann::json;`, or replace `json` with `nlohmann::json`
