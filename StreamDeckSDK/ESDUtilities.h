@@ -17,12 +17,13 @@ LICENSE file.
 
 class ESDUtilities {
  public:
-  static void DoSleep(int inMilliseconds);
-
   // Get the path of the .sdPlugin bundle
   static std::string GetPluginDirectoryPath();
   // Get the path of the full executable
   static std::string GetPluginExecutablePath();
+
+  [[deprecated("use std::this_thread::sleep_for() instead")]]
+  static void DoSleep(int inMilliseconds);
 
   // Return a path with the appending path component
   [[deprecated("Use std::filesystem::path instead")]] static std::string
