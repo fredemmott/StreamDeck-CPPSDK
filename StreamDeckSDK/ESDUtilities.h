@@ -19,21 +19,24 @@ class ESDUtilities {
  public:
   static void DoSleep(int inMilliseconds);
 
+  // Get the path of the .sdPlugin bundle
+  static std::string GetPluginDirectoryPath();
+  // Get the path of the full executable
+  static std::string GetPluginExecutablePath();
+
   // Return a path with the appending path component
-  static std::string AddPathComponent(
+  [[deprecated("Use std::filesystem::path instead")]] static std::string
+  AddPathComponent(
     const std::string &inPath,
     const std::string &inComponentToAdd);
 
   // Return the path without the last component (dirname). Returns path if it is
   // already a root folder (i.e. 'C:\\', '\\ABC' or '/'). Return an empty string
   // if error
-  static std::string GetParentDirectoryPath(const std::string &inPath);
+  [[deprecated("Use std::filesystem::path instead")]] static std::string
+  GetParentDirectoryPath(const std::string &inPath);
 
   // Return the last component of the path (basename)
-  static std::string GetFileName(const std::string &inPath);
-
-  // Get the path of the .sdPlugin bundle
-  static std::string GetPluginDirectoryPath();
-  // Get the path of the full executable
-  static std::string GetPluginExecutablePath();
+  [[deprecated("Use std::filesystem::path instead")]] static std::string
+  GetFileName(const std::string &inPath);
 };
