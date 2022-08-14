@@ -17,6 +17,7 @@ This library has been bundled with and used by several plugins for since January
 
 # What's changed from the Elgato SDK?
 
+- uses C++20 features, e.g. `<format>` (polyfilling to with fmt) and `<filesystem>`. Because of this, v3.x and above require MacOS 10.15 or above.
 - additional SDK features, through to 4.8:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
   - `ESDBasePlugin::DidReceiveSettings()`
@@ -47,8 +48,6 @@ This library has been bundled with and used by several plugins for since January
     release builds
   - adds `ESDDebug()` macro, which is an alias for `ESDLog()` in debug builds, and
     does nothing in release build
-  - uses C++20 `std::format`-stye format strings, e.g. `ESDDebug("foo {} baz", "bar")`; `std::format` is used where
-    available, otherwise `fmt`
   - MacOS: disables debug log censorship in Catalina and above
   - Win32: adds option for debug log prefix; this is useful for filtering in
     dbgview.exe
