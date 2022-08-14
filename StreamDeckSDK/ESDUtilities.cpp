@@ -4,8 +4,8 @@
 
 #include "ESDUtilities.h"
 
-std::filesystem::path ESDUtilities::GetPluginDirectoryPath() {
-  static std::filesystem::path sPath;
+ESD::filesystem::path ESDUtilities::GetPluginDirectoryPath() {
+  static ESD::filesystem::path sPath;
   if (!sPath.empty()) {
     return {};
   }
