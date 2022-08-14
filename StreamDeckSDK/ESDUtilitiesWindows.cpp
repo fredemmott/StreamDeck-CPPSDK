@@ -148,8 +148,8 @@ std::string ESDUtilities::GetParentDirectoryPath(const std::string& inPath) {
 }
 
 
-std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
-  static std::filesystem::path sPath;
+ESD::filesystem::path ESDUtilities::GetPluginExecutablePath() {
+  static ESD::filesystem::path sPath;
   if (!sPath.empty()) {
     return sPath;
   }

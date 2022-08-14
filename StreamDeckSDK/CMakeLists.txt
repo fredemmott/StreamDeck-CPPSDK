@@ -2,6 +2,7 @@ set(
   SOURCES
   ESDAction.cpp
   ESDConnectionManager.cpp
+  ESDFilesystem.cpp
   ESDUtilities.cpp
   ESDLogger.cpp
   ESDLocalizer.cpp
@@ -29,6 +30,11 @@ target_link_libraries(
   json
   websocketpp
 )
+if (HAS_STD_FILESYSTEM)
+  target_compile_definitions(StreamDeckSDK PUBLIC ESD_HAS_STD_FILESYSTEM)
+else()
+  target_link_libraries(StreamDeckSDK PUBLIC ghc_filesystem)
+endif()
 if (NOT MSVC)
   target_link_libraries(StreamDeckSDK PUBLIC fmt)
 endif()

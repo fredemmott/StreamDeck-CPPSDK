@@ -15,8 +15,8 @@ LICENSE file.
 
 #include <mach-o/dyld.h>
 
-std::filesystem::path ESDUtilities::GetPluginExecutablePath() {
-  static std::filesystem::path sPath;
+ESD::filesystem::path ESDUtilities::GetPluginExecutablePath() {
+  static ESD::filesystem::path sPath;
   if (!sPath.empty()) {
     return sPath;
   }
