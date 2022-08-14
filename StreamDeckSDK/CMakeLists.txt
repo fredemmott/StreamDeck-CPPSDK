@@ -30,7 +30,11 @@ target_link_libraries(
   json
   websocketpp
 )
-if (HAS_STD_FILESYSTEM)
+
+# ghc::filesystem only supports UTF-8 locales, which is not common on Windows.
+# In lieu of all callers properly using UTF-8 locales, we just require
+# std::filesystem.
+if ((NOT WIN32) AND HAS_STD_FILESYSTEM)
   target_compile_definitions(StreamDeckSDK PUBLIC ESD_HAS_STD_FILESYSTEM)
 else()
   target_link_libraries(StreamDeckSDK PUBLIC ghc_filesystem)
