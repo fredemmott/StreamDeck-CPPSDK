@@ -16,7 +16,7 @@ jobs:
             -DSOURCE_REF=${{github.sha}} `
             -DCMAKE_BUILD_TYPE=${{matrix.build-type}} `
             -DCMAKE_OSX_ARCHITECTURES=${{matrix.arch}} `
-            "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" `
+            "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.11" `
             "-DCMAKE_INSTALL_PREFIX=${{runner.temp}}/install"
         shell: pwsh
       - name: Compile
