@@ -38,3 +38,12 @@ install(
   PATTERN "*.hpp"
   PATTERN "*.ipp"
 )
+
+# Work around https://github.com/chriskohlhoff/asio/issues/1090
+if(APPLE AND "${CMAKE_OSX_DEPLOYMENT_TARGET}" VERSION_LESS "10.15")
+  target_compile_definitions(
+    asio
+    INTERFACE
+    "ASIO_DISABLE_STD_ALIGNED_ALLOC=1"
+  )
+endif()
