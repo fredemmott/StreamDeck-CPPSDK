@@ -17,7 +17,7 @@ This library has been bundled with and used by several plugins for since January
 
 # What's changed from the Elgato SDK?
 
-- uses C++20 features, e.g. `<format>` (polyfilling to with fmt) and `<filesystem>`. Because of this, v3.x and above require MacOS 10.15 or above.
+- uses C++20 features, e.g. `<format>` (polyfilling with fmt) and `<filesystem>` (polyfilling with `ghc::filesystem`)
 - additional SDK features, through to 4.8:
   - `ESDBasePlugin::DidReceiveGlobalSettings()`
   - `ESDBasePlugin::DidReceiveSettings()`
