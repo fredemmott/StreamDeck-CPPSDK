@@ -155,7 +155,7 @@ I make this for my own use, and I share this in the hope others find it useful; 
 
 If you have found a bug or have a feature request, please check [GitHub issues](https://github.com/fredemmott/StreamDeck-CPPSDK/issues) to see if it has already been reported, and [create a new issue](https://github.com/fredemmott/StreamDeck-CPPSDK/issues/new) if not.
 
-Support may be available from the community via [Discord](https://discord.gg/CWrvKfuff3).
+Support may be available from the community via [Discord](https://go.fredemmott.com/discord).
 
 I am not able to respond to 1:1 requests for help via any means, including GitHub, Discord, Twitter, Reddit, or email.
 
