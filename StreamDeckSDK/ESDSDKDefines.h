@@ -43,6 +43,9 @@ LICENSE file.
 #define kESDSDKEventPropertyInspectorDidAppear "propertyInspectorDidAppear"
 #define kESDSDKEventPropertyInspectorDidDisappear \
   "propertyInspectorDidDisappear"
+#define kESDSDKEventDialRotate "dialRotate"
+#define kESDSDKEventDialPress "dialPress"
+#define kESDSDKEventTouchTap "touchTap"
 
 //
 // Functions
@@ -62,6 +65,7 @@ LICENSE file.
 #define kESDSDKEventSendToPlugin "sendToPlugin"
 #define kESDSDKEventOpenURL "openUrl"
 #define kESDSDKEventLogMessage "logMessage"
+#define kESDSDKEventSetFeedback "setFeedback"
 
 //
 // Payloads
@@ -159,5 +163,6 @@ enum {
   kESDSDKDeviceType_StreamDeckXL = 2,
   kESDSDKDeviceType_StreamDeckMobile = 3,
   kESDSDKDeviceType_CorsairGKeys = 4,
-  kESDSDKDeviceType_StreamDeckPedal = 5
+  kESDSDKDeviceType_StreamDeckPedal = 5,
+  kESDSDKDeviceType_StreamDeckPlus = 7 // From volume controller manifest.json
 };
