@@ -48,11 +48,13 @@ class ESDAction {
   virtual void WillAppear(const nlohmann::json& settings);
   virtual void RotateClockwise(
     const nlohmann::json& settings,
-    const unsigned int ticks
+    const unsigned int ticks,
+    const bool pressed
   );
   virtual void RotateCounterClockwise(
     const nlohmann::json& settings,
-    const unsigned int ticks
+    const unsigned int ticks,
+    const bool pressed
   );
 
  protected:

@@ -49,14 +49,16 @@ void ESDAction::DialDown(const nlohmann::json& settings) {
 
 void ESDAction::RotateClockwise(
   const nlohmann::json& settings,
-  const unsigned int ticks
+  const unsigned int ticks,
+  const bool pressed
 ) {
 
 }
 
 void ESDAction::RotateCounterClockwise(
   const nlohmann::json& settings,
-  const unsigned int ticks
+  const unsigned int ticks,
+  const bool pressed
 ) {
 
 }
