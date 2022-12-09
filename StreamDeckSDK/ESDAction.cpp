@@ -47,6 +47,20 @@ void ESDAction::DialDown(const nlohmann::json& settings) {
 
 }
 
+void ESDAction::RotateClockwise(
+  const nlohmann::json& settings,
+  const unsigned int ticks
+) {
+
+}
+
+void ESDAction::RotateCounterClockwise(
+  const nlohmann::json& settings,
+  const unsigned int ticks
+) {
+
+}
+
 void ESDAction::SendToPlugin(const nlohmann::json& payload) {
 }
 

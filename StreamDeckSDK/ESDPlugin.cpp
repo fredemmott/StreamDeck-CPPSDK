@@ -76,6 +76,18 @@ void ESDPlugin::DialRotateForAction(
     ESDLog("No action for dialRotate - {} {}", inAction, inContext);
     return;
   }
+  int ticks(inPayload["ticks"]);
+  if (inPayload["ticks"] < 0) {
+    action->RotateCounterClockwise(
+      inPayload["settings"],
+      static_cast<const unsigned int>(-ticks)
+    );
+  } else {
+    action->RotateClockwise(
+      inPayload["settings"],
+      static_cast<const unsigned int>(ticks)
+    );
+  }
 }
 
 void ESDPlugin::WillAppearForAction(
