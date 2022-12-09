@@ -49,6 +49,12 @@ class ESDPlugin : public ESDBasePlugin {
     const nlohmann::json& inPayload,
     const std::string& inDeviceID) override;
 
+  virtual void DialRotateForAction(
+    const std::string& inAction,
+    const std::string& inContext,
+    const nlohmann::json& inPayload,
+    const std::string& inDeviceID) override;
+
   virtual void WillAppearForAction(
     const std::string& inAction,
     const std::string& inContext,
