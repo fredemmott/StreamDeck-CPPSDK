@@ -164,5 +164,6 @@ enum {
   kESDSDKDeviceType_StreamDeckMobile = 3,
   kESDSDKDeviceType_CorsairGKeys = 4,
   kESDSDKDeviceType_StreamDeckPedal = 5,
+  kESDSDKDeviceType_CorsairVoyager = 6,
   kESDSDKDeviceType_StreamDeckPlus = 7// From volume controller manifest.json
 };
