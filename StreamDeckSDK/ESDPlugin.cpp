@@ -50,6 +50,18 @@ void ESDPlugin::KeyUpForAction(
   action->KeyUp(inPayload["settings"]);
 }
 
+void ESDPlugin::DialPressForAction(
+  const std::string& inAction,
+  const std::string& inContext,
+  const json& inPayload,
+  const std::string& inDeviceID) {
+  auto action = GetOrCreateAction(inAction, inContext);
+  if (!action) {
+    ESDLog("No action for dialPress - {} {}", inAction, inContext);
+    return;
+  }
+}
+
 void ESDPlugin::WillAppearForAction(
   const std::string& inAction,
   const std::string& inContext,

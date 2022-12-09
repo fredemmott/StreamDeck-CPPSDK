@@ -120,6 +120,8 @@ void ESDConnectionManager::OnMessage(
         mPlugin->SendToPlugin(action, context, payload, deviceID);
       } else if (event == kESDSDKEventSystemDidWakeUp) {
         mPlugin->SystemDidWakeUp();
+      } else if (event == kESDSDKEventDialPress) {
+        mPlugin->DialPressForAction(action, context, payload, deviceID);
       }
     } catch (...) {
     }
