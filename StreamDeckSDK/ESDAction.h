@@ -9,7 +9,6 @@
 #include <StreamDeckSDK/ESDSDKDefines.h>
 
 #include <nlohmann/json.hpp>
-
 #include <string>
 
 class ESDConnectionManager;
@@ -33,7 +32,10 @@ class ESDConnectionManager;
  */
 class ESDAction {
  public:
-  ESDAction(ESDConnectionManager* esd_connection, const std::string& action, const std::string& context);
+  ESDAction(
+    ESDConnectionManager* esd_connection,
+    const std::string& action,
+    const std::string& context);
   virtual ~ESDAction();
 
   std::string GetAction() const;
@@ -49,13 +51,11 @@ class ESDAction {
   virtual void RotateClockwise(
     const nlohmann::json& settings,
     const unsigned int ticks,
-    const bool pressed
-  );
+    const bool pressed);
   virtual void RotateCounterClockwise(
     const nlohmann::json& settings,
     const unsigned int ticks,
-    const bool pressed
-  );
+    const bool pressed);
 
  protected:
   ESDConnectionManager* GetESD() const;
@@ -65,13 +65,11 @@ class ESDAction {
   void SetTitle(
     const std::string& title,
     ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
-    int state = -1
-  );
+    int state = -1);
   void SetImage(
     const std::string& inBase64ImageString,
     ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
-    int state = -1
-  );
+    int state = -1);
   void ShowAlert();
   void ShowOK();
   void SetSettings(const nlohmann::json& inSettings);

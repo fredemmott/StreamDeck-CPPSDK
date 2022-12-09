@@ -38,6 +38,7 @@ class ESDActionWithExternalState : public ESDAction {
   const TSettings& GetSettings() const {
     return mSettings;
   }
+
  public:
   ESDActionWithExternalState(
     ESDConnectionManager* esd_connection,
