@@ -42,6 +42,8 @@ class ESDAction {
   virtual void DidReceiveSettings(const nlohmann::json& settings);
   virtual void KeyDown(const nlohmann::json& settings);
   virtual void KeyUp(const nlohmann::json& settings);
+  virtual void DialUp(const nlohmann::json& settings);
+  virtual void DialDown(const nlohmann::json& settings);
   virtual void SendToPlugin(const nlohmann::json& payload);
   virtual void WillAppear(const nlohmann::json& settings);
 

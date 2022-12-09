@@ -39,6 +39,14 @@ void ESDAction::KeyDown(const nlohmann::json& settings) {
 void ESDAction::KeyUp(const nlohmann::json& settings) {
 }
 
+void ESDAction::DialUp(const nlohmann::json& settings) {
+
+}
+
+void ESDAction::DialDown(const nlohmann::json& settings) {
+
+}
+
 void ESDAction::SendToPlugin(const nlohmann::json& payload) {
 }
 

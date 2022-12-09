@@ -60,6 +60,10 @@ void ESDPlugin::DialPressForAction(
     ESDLog("No action for dialPress - {} {}", inAction, inContext);
     return;
   }
+  if (inPayload["pressed"])
+    action->DialDown(inPayload["settings"]);
+  else
+    action->DialUp(inPayload["settings"]);
 }
 
 void ESDPlugin::WillAppearForAction(
