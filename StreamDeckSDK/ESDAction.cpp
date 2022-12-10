@@ -39,6 +39,24 @@ void ESDAction::KeyDown(const nlohmann::json& settings) {
 void ESDAction::KeyUp(const nlohmann::json& settings) {
 }
 
+void ESDAction::DialUp(const nlohmann::json& settings) {
+}
+
+void ESDAction::DialDown(const nlohmann::json& settings) {
+}
+
+void ESDAction::RotateClockwise(
+  const nlohmann::json& settings,
+  const unsigned int ticks,
+  const bool pressed) {
+}
+
+void ESDAction::RotateCounterClockwise(
+  const nlohmann::json& settings,
+  const unsigned int ticks,
+  const bool pressed) {
+}
+
 void ESDAction::SendToPlugin(const nlohmann::json& payload) {
 }
 
@@ -52,15 +70,13 @@ void ESDAction::SetState(int state) {
 void ESDAction::SetTitle(
   const std::string& title,
   ESDSDKTarget target,
-  int state
-) {
+  int state) {
   GetESD()->SetTitle(title, mContext, target, state);
 }
 void ESDAction::SetImage(
   const std::string& inBase64ImageString,
   ESDSDKTarget target,
-  int state
-) {
+  int state) {
   GetESD()->SetImage(inBase64ImageString, mContext, target, state);
 }
 void ESDAction::SetSettings(const nlohmann::json& inSettings) {
@@ -74,9 +90,5 @@ void ESDAction::ShowOK() {
 }
 
 void ESDAction::SendToPropertyInspector(const nlohmann::json& payload) {
-  GetESD()->SendToPropertyInspector(
-    mAction,
-    mContext,
-    payload
-  );
+  GetESD()->SendToPropertyInspector(mAction, mContext, payload);
 }
