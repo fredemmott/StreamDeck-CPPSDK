@@ -70,6 +70,8 @@ class ESDAction {
     const std::string& inBase64ImageString,
     ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
     int state = -1);
+  void SetFeedback(
+    const nlohmann::json& payload);
   void ShowAlert();
   void ShowOK();
   void SetSettings(const nlohmann::json& inSettings);

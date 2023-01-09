@@ -88,6 +88,9 @@ void ESDAction::ShowAlert() {
 void ESDAction::ShowOK() {
   GetESD()->ShowOKForContext(mContext);
 }
+void ESDAction::SetFeedback(const nlohmann::json& payload) {
+  GetESD()->SetFeedback(payload, mContext);
+}
 
 void ESDAction::SendToPropertyInspector(const nlohmann::json& payload) {
   GetESD()->SendToPropertyInspector(mAction, mContext, payload);

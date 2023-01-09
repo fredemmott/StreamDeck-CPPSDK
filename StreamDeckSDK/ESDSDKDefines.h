@@ -53,6 +53,7 @@ LICENSE file.
 
 #define kESDSDKEventSetTitle "setTitle"
 #define kESDSDKEventSetImage "setImage"
+#define kESDSDKEventSetFeedback "setFeedback"
 #define kESDSDKEventShowAlert "showAlert"
 #define kESDSDKEventShowOK "showOk"
 #define kESDSDKEventGetSettings "getSettings"

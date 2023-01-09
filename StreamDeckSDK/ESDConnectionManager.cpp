@@ -301,6 +301,18 @@ void ESDConnectionManager::SetState(int inState, const std::string& inContext) {
     mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);
 }
 
+void ESDConnectionManager::SetFeedback(const nlohmann::json& payload, const std::string& inContext) {
+  json jsonObject;
+
+  jsonObject[kESDSDKCommonEvent] = kESDSDKEventSetFeedback;
+  jsonObject[kESDSDKCommonContext] = inContext;
+  jsonObject[kESDSDKCommonPayload] = payload;
+
+  websocketpp::lib::error_code ec;
+  mWebsocket.send(
+    mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);
+}
+
 void ESDConnectionManager::SendToPropertyInspector(
   const std::string& inAction,
   const std::string& inContext,

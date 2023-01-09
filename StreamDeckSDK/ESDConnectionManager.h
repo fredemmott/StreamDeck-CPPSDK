@@ -56,6 +56,9 @@ class ESDConnectionManager {
   void GetGlobalSettings();
   void SetGlobalSettings(const nlohmann::json& inSettings);
   void SetState(int inState, const std::string& inContext);
+  void SetFeedback(
+    const nlohmann::json& payload,
+    const std::string& inContext);
   void SendToPropertyInspector(
     const std::string& inAction,
     const std::string& inContext,
