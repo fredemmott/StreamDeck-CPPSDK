@@ -71,7 +71,9 @@ class ESDAction {
     ESDSDKTarget = kESDSDKTarget_HardwareAndSoftware,
     int state = -1);
   void SetFeedback(
-    const nlohmann::json& payload);
+    const nlohmann::json& inPayload);
+  void SetFeedbackLayout(
+    const std::string& inIdentifierOrPath);
   void ShowAlert();
   void ShowOK();
   void SetSettings(const nlohmann::json& inSettings);

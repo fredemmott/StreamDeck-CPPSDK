@@ -88,8 +88,12 @@ void ESDAction::ShowAlert() {
 void ESDAction::ShowOK() {
   GetESD()->ShowOKForContext(mContext);
 }
-void ESDAction::SetFeedback(const nlohmann::json& payload) {
-  GetESD()->SetFeedback(payload, mContext);
+void ESDAction::SetFeedback(const nlohmann::json& inPayload) {
+  GetESD()->SetFeedback(inPayload, mContext);
+}
+
+void ESDAction::SetFeedbackLayout(const std::string& inIdentifierOrPath) {
+  GetESD()->SetFeedbackLayout(inIdentifierOrPath, mContext);
 }
 
 void ESDAction::SendToPropertyInspector(const nlohmann::json& payload) {

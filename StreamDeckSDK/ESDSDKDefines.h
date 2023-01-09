@@ -54,6 +54,7 @@ LICENSE file.
 #define kESDSDKEventSetTitle "setTitle"
 #define kESDSDKEventSetImage "setImage"
 #define kESDSDKEventSetFeedback "setFeedback"
+#define kESDSDKEventSetFeedbackLayout "setFeedbackLayout"
 #define kESDSDKEventShowAlert "showAlert"
 #define kESDSDKEventShowOK "showOk"
 #define kESDSDKEventGetSettings "getSettings"
@@ -66,7 +67,6 @@ LICENSE file.
 #define kESDSDKEventSendToPlugin "sendToPlugin"
 #define kESDSDKEventOpenURL "openUrl"
 #define kESDSDKEventLogMessage "logMessage"
-#define kESDSDKEventSetFeedback "setFeedback"
 
 //
 // Payloads
@@ -84,6 +84,7 @@ LICENSE file.
 #define kESDSDKPayloadProfile "profile"
 #define kESDSDKPayloadApplication "application"
 #define kESDSDKPayloadIsInMultiAction "isInMultiAction"
+#define kESDSDKPayloadLayout "layout"
 #define kESDSDKPayloadMessage "message"
 
 #define kESDSDKPayloadCoordinatesColumn "column"

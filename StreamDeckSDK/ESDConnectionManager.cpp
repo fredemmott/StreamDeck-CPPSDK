@@ -301,12 +301,26 @@ void ESDConnectionManager::SetState(int inState, const std::string& inContext) {
     mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);
 }
 
-void ESDConnectionManager::SetFeedback(const nlohmann::json& payload, const std::string& inContext) {
+void ESDConnectionManager::SetFeedback(const nlohmann::json& inPayload, const std::string& inContext) {
   json jsonObject;
 
   jsonObject[kESDSDKCommonEvent] = kESDSDKEventSetFeedback;
   jsonObject[kESDSDKCommonContext] = inContext;
-  jsonObject[kESDSDKCommonPayload] = payload;
+  jsonObject[kESDSDKCommonPayload] = inPayload;
+
+  websocketpp::lib::error_code ec;
+  mWebsocket.send(
+    mConnectionHandle, jsonObject.dump(), websocketpp::frame::opcode::text, ec);
+}
+
+void ESDConnectionManager::SetFeedbackLayout(const std::string& inIdentifierOrPath , const std::string& inContext) {
+  json jsonObject;
+
+  jsonObject[kESDSDKCommonEvent] = kESDSDKEventSetFeedbackLayout;
+  jsonObject[kESDSDKCommonContext] = inContext;
+  jsonObject[kESDSDKCommonPayload] = {
+    {kESDSDKPayloadLayout, inIdentifierOrPath},
+  };
 
   websocketpp::lib::error_code ec;
   mWebsocket.send(
