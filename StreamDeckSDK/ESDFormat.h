@@ -17,8 +17,15 @@
 #include <format>
 namespace ESD {
 using std::format;
+#if __cpp_lib_format >= 202207L
+// C++20 DR https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2508r1.html
+// MSVC 2020 v17.5 and above
+using std::basic_format_string;
+#else
+// MSVC 2020 v17.4 and below
 template <class... Args>
 using basic_format_string = std::_Basic_format_string<Args...>;
+#endif
 }// namespace ESD
 #else
 #include <fmt/format.h>
