@@ -25,7 +25,7 @@ jobs:
     needs: make-zip
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: StreamDeckSDK.zip
           path: ${{runner.temp}}/artifacts
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           path: artifacts
       - name: List artifacts
