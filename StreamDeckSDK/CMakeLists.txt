@@ -31,14 +31,20 @@ target_link_libraries(
   websocketpp
 )
 
-# ghc::filesystem only supports UTF-8 locales, which is not common on Windows.
-# In lieu of all callers properly using UTF-8 locales, we just require
-# std::filesystem.
-if ((NOT WIN32) AND HAS_STD_FILESYSTEM)
-  target_compile_definitions(StreamDeckSDK PUBLIC ESD_HAS_STD_FILESYSTEM)
+# Older MacOS SDKs (currently targeting v10.11) claim C++20 support, but do not
+# have a usable `std::filesystem`; use a polyfill.
+#
+# Don't use it everywhere as ghc::filesystem only supports UTF-8 locales,
+# which are not common on Windows.
+#
+# Don't require that callers explicitly convert from the actual locale to UTF-8;
+# instead, use `std::filesystem` where available.
+if (HAS_STD_FILESYSTEM_PATH)
+  target_compile_definitions(StreamDeckSDK PUBLIC ESD_HAS_STD_FILESYSTEM_PATH)
 else()
   target_link_libraries(StreamDeckSDK PUBLIC ghc_filesystem)
 endif()
+
 if (NOT MSVC)
   target_link_libraries(StreamDeckSDK PUBLIC fmt)
 endif()

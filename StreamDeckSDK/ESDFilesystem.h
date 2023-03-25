@@ -5,7 +5,7 @@
 
 /* Use std::filesystem where available, ghc::filesystem otherwise. */
 
-#ifdef ESD_HAS_STD_FILESYSTEM
+#ifdef ESD_HAS_STD_FILESYSTEM_PATH
 #include <filesystem>
 namespace ESD {
   namespace filesystem {
