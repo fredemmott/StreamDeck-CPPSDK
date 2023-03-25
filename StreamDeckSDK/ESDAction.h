@@ -48,14 +48,10 @@ class ESDAction {
   virtual void DialDown(const nlohmann::json& settings);
   virtual void SendToPlugin(const nlohmann::json& payload);
   virtual void WillAppear(const nlohmann::json& settings);
-  virtual void RotateClockwise(
+  virtual void DialRotate(
     const nlohmann::json& settings,
-    const unsigned int ticks,
-    const bool pressed);
-  virtual void RotateCounterClockwise(
-    const nlohmann::json& settings,
-    const unsigned int ticks,
-    const bool pressed);
+    int ticks,
+    bool pressed);
 
  protected:
   ESDConnectionManager* GetESD() const;
