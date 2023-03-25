@@ -34,6 +34,12 @@ class ESDActionWithExternalState : public ESDAction {
   }
   virtual void KeyUp() {
   }
+  virtual void DialPress() {
+  }
+  virtual void DialRelease() {
+  }
+  virtual void DialRotate(int ticks, bool pressed) {
+  }
 
   const TSettings& GetSettings() const {
     return mSettings;
@@ -50,7 +56,8 @@ class ESDActionWithExternalState : public ESDAction {
   virtual ~ESDActionWithExternalState() {
   }
 
-  virtual void DidReceiveSettings(const nlohmann::json& json_settings) final {
+  virtual void DidReceiveSettings(
+    const nlohmann::json& json_settings) override final {
     TSettings new_settings(json_settings);
     if (new_settings == mSettings) {
       return;
@@ -60,19 +67,37 @@ class ESDActionWithExternalState : public ESDAction {
     SettingsDidChange(old_settings, mSettings);
   }
 
-  virtual void WillAppear(const nlohmann::json& settings) final {
+  virtual void WillAppear(const nlohmann::json& settings) override final {
     DidReceiveSettings(settings);
     WillAppear();
   }
 
-  virtual void KeyUp(const nlohmann::json& settings) final {
+  virtual void KeyUp(const nlohmann::json& settings) override final {
     DidReceiveSettings(settings);
     KeyUp();
   }
 
-  virtual void KeyDown(const nlohmann::json& settings) final {
+  virtual void KeyDown(const nlohmann::json& settings) override final {
     DidReceiveSettings(settings);
     KeyDown();
+  }
+
+  virtual void DialPress(const nlohmann::json& settings) override final {
+    DidReceiveSettings(settings);
+    DialPress();
+  }
+
+  virtual void DialRelease(const nlohmann::json& settings) final {
+    DidReceiveSettings(settings);
+    DialRelease();
+  }
+
+  virtual void DialRotate(
+    const nlohmann::json& settings,
+    int ticks,
+    bool pressed) override final {
+    DidReceiveSettings(settings);
+    DialRotate(ticks, pressed);
   }
 
  private:
