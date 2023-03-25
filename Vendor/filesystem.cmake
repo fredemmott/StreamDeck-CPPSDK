@@ -1,21 +1,23 @@
 include(FetchContent)
 include(CheckCXXSourceCompiles)
 
-check_cxx_source_compiles("
-#ifdef __APPLE__
-#include <Availability.h> // for deployment target to support pre-catalina targets without std::fs
-#endif
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || (defined(__cplusplus) && __cplusplus >= 201703L)) && defined(__has_include)
-#if __has_include(<filesystem>) && (!defined(__MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= 101500)
-#define GHC_USE_STD_FS
-#endif
-#endif
-#ifndef GHC_USE_STD_FS
-#error \"std::filesystem missing or unusable\"
-#endif
-" HAS_STD_FILESYSTEM)
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++20 /Zc:__cplusplus")
+endif()
 
-if(NOT HAS_STD_FILESYSTEM)
+check_cxx_source_compiles("
+#include <filesystem>
+
+int main() {
+  std::filesystem::path path;
+  return 0;
+}
+" HAS_STD_FILESYSTEM_PATH)
+
+if(NOT HAS_STD_FILESYSTEM_PATH)
+  if(WIN32)
+    message(FATAL_ERROR "Refusing to use `ghc::filesystem` on Windows due to differing locale behavior")
+  endif()
   FetchContent_Declare(
     filesystem
     URL https://github.com/gulrak/filesystem/archive/refs/tags/v1.5.12.zip

@@ -2,6 +2,6 @@
 // This source code is licensed under the MIT-style license found in
 // the LICENSE file.
 
-#ifndef ESD_HAS_STD_FILESYSTEM
+#ifndef ESD_HAS_STD_FILESYSTEM_PATH
 #include <ghc/fs_impl.hpp>
 #endif
