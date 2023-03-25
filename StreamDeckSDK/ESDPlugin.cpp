@@ -60,10 +60,11 @@ void ESDPlugin::DialPressForAction(
     ESDLog("No action for dialPress - {} {}", inAction, inContext);
     return;
   }
-  if (inPayload["pressed"])
-    action->DialDown(inPayload["settings"]);
-  else
-    action->DialUp(inPayload["settings"]);
+  if (inPayload["pressed"]) {
+    action->DialPress(inPayload["settings"]);
+  } else {
+    action->DialRelease(inPayload["settings"]);
+  }
 }
 
 void ESDPlugin::DialRotateForAction(
@@ -78,8 +79,7 @@ void ESDPlugin::DialRotateForAction(
   }
   const int ticks(inPayload["ticks"]);
   const bool pressed(inPayload["pressed"]);
-  action->DialRotate(
-    inPayload["settings"], ticks, pressed);
+  action->DialRotate(inPayload["settings"], ticks, pressed);
 }
 
 void ESDPlugin::WillAppearForAction(

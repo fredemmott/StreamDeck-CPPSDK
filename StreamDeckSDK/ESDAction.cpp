@@ -39,10 +39,10 @@ void ESDAction::KeyDown(const nlohmann::json& settings) {
 void ESDAction::KeyUp(const nlohmann::json& settings) {
 }
 
-void ESDAction::DialUp(const nlohmann::json& settings) {
+void ESDAction::DialPress(const nlohmann::json& settings) {
 }
 
-void ESDAction::DialDown(const nlohmann::json& settings) {
+void ESDAction::DialRelease(const nlohmann::json& settings) {
 }
 
 void ESDAction::DialRotate(

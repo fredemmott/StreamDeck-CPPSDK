@@ -43,8 +43,15 @@ class ESDAction {
 
   virtual void KeyDown(const nlohmann::json& settings);
   virtual void KeyUp(const nlohmann::json& settings);
-  virtual void DialUp(const nlohmann::json& settings);
-  virtual void DialDown(const nlohmann::json& settings);
+  /** Unlike the raw SDK event, DialPress and DialRelease are
+   * are separate events for consistency with KeyUp/KeyDown
+   *
+   * These are not named DialDown/DialUp - even though that would
+   * be more consistent with KeyDown/KeyUp - to avoid confusion
+   * with rotation increasing/decreasing values.
+   */
+  virtual void DialPress(const nlohmann::json& settings);
+  virtual void DialRelease(const nlohmann::json& settings);
   virtual void DialRotate(
     const nlohmann::json& settings,
     int ticks,
