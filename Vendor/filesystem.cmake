@@ -2,9 +2,10 @@ include(FetchContent)
 include(CheckCXXSourceCompiles)
 
 if(MSVC)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++20 /Zc:__cplusplus")
+  set(CMAKE_REQUIRED_FLAGS "/std:c++20 /Zc:__cplusplus")
 endif()
 
+# MacOS < 10.15 has `<filesystem>` but not `std::filesystem::path`
 check_cxx_source_compiles("
 #include <filesystem>
 
