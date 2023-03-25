@@ -5,7 +5,7 @@ jobs:
     name: ${{matrix.os}}/${{matrix.build-type}}
     runs-on: ${{matrix.runs-on}}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Make build directory
         run: cmake -E make_directory build
       - name: Configure
@@ -40,7 +40,7 @@ jobs:
           cmake --build . --config ${{matrix.build-type}} --parallel
           cmake --install . --config ${{matrix.build-type}}
       - name: Upload StreamDeckSDK.cmake
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: StreamDeckSDK.cmake
           path: build/StreamDeckSDK.cmake
