@@ -14,6 +14,7 @@ LICENSE file.
 #include "ESDUtilities.h"
 
 #include <mach-o/dyld.h>
+#include <cassert>
 
 ESD::filesystem::path ESDUtilities::GetPluginExecutablePath() {
   static ESD::filesystem::path sPath;
