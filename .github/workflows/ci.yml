@@ -5,7 +5,7 @@ jobs:
     name: ${{matrix.os}}/${{matrix.build-type}}
     runs-on: ${{matrix.runs-on}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Make build directory
         run: cmake -E make_directory build
       - name: Configure
