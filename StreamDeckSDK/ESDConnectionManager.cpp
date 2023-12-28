@@ -232,14 +232,15 @@ void ESDConnectionManager::SetImage(
 
   json payload;
   payload[kESDSDKPayloadTarget] = inTarget;
-  const std::string prefix = "data:image/png;base64,";
+  const std::string pngPrefix = "data:image/png;base64,";
+  const std::string prefix = "data:image/";
   if (
     inBase64ImageString.empty()
     || inBase64ImageString.substr(0, prefix.length()).find(prefix) == 0)
     payload[kESDSDKPayloadImage] = inBase64ImageString;
   else
-    payload[kESDSDKPayloadImage]
-      = "data:image/png;base64," + inBase64ImageString;
+    // assume Base64-encoded PNG image
+    payload[kESDSDKPayloadImage] = pngPrefix + inBase64ImageString;
   if (inState >= 0) {
     payload[kESDSDKPayloadState] = inState;
   }
