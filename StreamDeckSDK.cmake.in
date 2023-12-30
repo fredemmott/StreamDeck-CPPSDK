@@ -4,6 +4,7 @@ FetchContent_Declare(
   StreamDeckSDK
   @SOURCE_URL_TYPE@ @SOURCE_URL@
   @SOURCE_REF_TYPE@ @SOURCE_REF@
+  DOWNLOAD_EXTRACT_TIMESTAMP ON
 )
 
 FetchContent_GetProperties(StreamDeckSDK)
