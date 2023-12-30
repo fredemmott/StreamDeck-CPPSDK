@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(com.fredemmott.streamdeckcppsdk VERSION 3.0.0 LANGUAGES CXX)
+project(com.fredemmott.streamdeckcppsdk VERSION 3.0.3 LANGUAGES CXX)
 
 if (PROJECT_IS_TOP_LEVEL)
   set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH NO)
