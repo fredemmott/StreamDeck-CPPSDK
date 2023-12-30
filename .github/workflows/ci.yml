@@ -39,11 +39,6 @@ jobs:
           cmake .. -DCMAKE_INSTALL_PREFIX=${{runner.temp}}/example-install
           cmake --build . --config ${{matrix.build-type}} --parallel
           cmake --install . --config ${{matrix.build-type}}
-      - name: Upload StreamDeckSDK.cmake
-        uses: actions/upload-artifact@v3
-        with:
-          name: StreamDeckSDK.cmake
-          path: build/StreamDeckSDK.cmake
     strategy:
       fail-fast: false
       matrix:
