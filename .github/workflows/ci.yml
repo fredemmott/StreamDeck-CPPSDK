@@ -60,3 +60,15 @@ jobs:
             runs-on: macos-latest
           - os: linux
             runs-on: ubuntu-20.04
+  upload-cmake-file:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake .
+      - name: Upload StreamDeckSDK.cmake
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamDeckSDK.cmake
+          path: StreamDeckSDK.cmake
