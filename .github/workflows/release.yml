@@ -16,7 +16,7 @@ jobs:
             -o StreamDeckSDK.zip \
             HEAD
       - name: Upload zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: StreamDeckSDK.zip
           path: StreamDeckSDK.zip
@@ -44,7 +44,7 @@ jobs:
             "-DCMAKE_INSTALL_PREFIX=$(echo "${{runner.temp}}/install" | tr "\\\\" /)"
         shell: bash
       - name: Upload StreamDeckSDK.cmake
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: StreamDeckSDK.cmake
           path: StreamDeckSDK.cmake
