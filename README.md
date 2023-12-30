@@ -77,9 +77,6 @@ add_executable(
 target_link_libraries(myplugin StreamDeckSDK)
 ```
 
-For a complete example, there is
-[a fork](https://github.com/fredemmott/streamdeck-cpu) of Elgato's CPU plugin.
-
 To update, replace `StreamDeckSDK.cmake` with the newer version and address any
 incompatibilities.
 
