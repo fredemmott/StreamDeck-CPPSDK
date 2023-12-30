@@ -7,7 +7,7 @@ jobs:
     name: Build release zip archive
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build zip
         run: |
           git archive \
@@ -25,12 +25,12 @@ jobs:
     needs: make-zip
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: StreamDeckSDK.zip
           path: ${{runner.temp}}/artifacts
       - run: ls -lR ${{runner.temp}}/artifacts
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get raw tag name
         run: echo "VERSION=$(echo ${{github.ref}} | awk -F/ '{print $NF}')" >> $GITHUB_ENV
       - name: Configure
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
       - name: List artifacts
