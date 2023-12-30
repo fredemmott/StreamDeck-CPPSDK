@@ -61,7 +61,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        run: cmake .
+        run: |
+          cmake . `
+            -DSOURCE_URL=https://github.com/${{github.repository}} `
+            -DSOURCE_REF=${{github.sha}}
       - name: Upload StreamDeckSDK.cmake
         uses: actions/upload-artifact@v4
         with:
