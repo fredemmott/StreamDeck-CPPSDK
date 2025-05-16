@@ -1,4 +1,8 @@
-![Continuous Integration](https://github.com/fredemmott/StreamDeck-CPPSDK/workflows/Continuous%20Integration/badge.svg)
+# Project status
+
+For commercial enquiries, contact me at mail@fredemmott.com
+
+Outside of business-to-business contracts, this project is only maintained for my own needs, and no support is available.
 
 # What is this?
 
@@ -145,16 +149,6 @@ For example, the CPU plugin was ported by:
 
 Additionally, using CMake makes it easy to automatically build on both platforms
 [using GitHub actions](https://github.com/fredemmott/streamdeck-cpu/commit/8ad6e1c35868965651b583011c63b264b049f841).
-
-# Getting Help
-
-I make this for my own use, and I share this in the hope others find it useful; I'm not able to commit to support, bug fixes, or feature development.
-
-If you have found a bug or have a feature request, please check [GitHub issues](https://github.com/fredemmott/StreamDeck-CPPSDK/issues) to see if it has already been reported, and [create a new issue](https://github.com/fredemmott/StreamDeck-CPPSDK/issues/new) if not.
-
-Support may be available from the community via [Discord](https://go.fredemmott.com/discord).
-
-I am not able to respond to 1:1 requests for help via any means, including GitHub, Discord, Twitter, Reddit, or email.
 
 # LICENSE
 
